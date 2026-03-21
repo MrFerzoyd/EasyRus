@@ -1,0 +1,2624 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EasyRus — Грамматика и практика</title>
+
+  <!-- Bootstrap 5.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+  <!-- Font Awesome — вставь свою ссылку сюда -->
+  <!-- <link rel="stylesheet" href="ВАШ_FONT_AWESOME_LINK" /> -->
+
+  <style>
+/*
+ * EasyRus — style.css
+ * Дизайн для учеников 6–8 класса.
+ * Bootstrap — основа. Здесь — уникальные компоненты.
+ */
+
+/* ━━━━━━━━━━━━━━━━━ TOKENS ━━━━━━━━━━━━━━━━━ */
+:root {
+  --blue-50:  #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-900: #1e3a8a;
+
+  --surface:       #ffffff;
+  --surface-2:     #f8faff;
+  --border-color:  #e2e8f5;
+  --text-main:     #0f172a;
+  --text-muted:    #64748b;
+  --text-faint:    #94a3b8;
+
+  --radius-card: 14px;
+  --radius-btn:  10px;
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(37,99,235,.07);
+  --shadow-btn:  0 2px 10px rgba(37,99,235,.35);
+
+  --transition: .2s ease;
+}
+
+[data-bs-theme="dark"] {
+  --blue-50:  #0a1628;
+  --blue-100: #0f1e3d;
+  --blue-200: #1e3a8a;
+  --blue-500: #60a5fa;
+  --blue-600: #3b82f6;
+  --blue-700: #93c5fd;
+  --blue-900: #bfdbfe;
+
+  --surface:      #0e1929;
+  --surface-2:    #080f1c;
+  --border-color: #1a2f50;
+  --text-main:    #e8f0fe;
+  --text-muted:   #94a3b8;
+  --text-faint:   #4a6080;
+}
+
+/* ━━━━━━━━━━━━━━━━━ BASE ━━━━━━━━━━━━━━━━━ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--surface-2);
+  color: var(--text-main);
+  transition: background var(--transition), color var(--transition);
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; border: none; }
+
+/* Page transitions */
+.page { animation: pageIn .22s ease both; }
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ━━━━━━━━━━━━━━━━━ NAVBAR ━━━━━━━━━━━━━━━━━ */
+#mainNavbar {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-color);
+  transition: background var(--transition), border-color var(--transition);
+}
+.brand-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 9px;
+  background: var(--blue-600); color: #fff;
+  font-size: 13px; font-weight: 800; letter-spacing: -.5px;
+}
+.brand-text { font-size: 17px; font-weight: 700; color: var(--text-main); margin-left: 8px; }
+.navbar-brand { display: flex; align-items: center; }
+
+.nav-link { font-size: 14px; font-weight: 500; color: var(--text-muted) !important; padding: 6px 12px !important; border-radius: 8px; transition: background var(--transition), color var(--transition) !important; }
+.nav-link:hover { background: var(--blue-50); color: var(--blue-600) !important; }
+
+.xp-chip {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 13px; border-radius: 99px;
+  background: var(--blue-50); color: var(--blue-600);
+  font-size: 13px; font-weight: 700;
+  border: 1px solid var(--blue-200);
+}
+.btn-theme {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: var(--blue-50); color: var(--text-muted);
+  font-size: 14px;
+  transition: background var(--transition), color var(--transition);
+}
+.btn-theme:hover { background: var(--blue-100); color: var(--blue-600); }
+
+/* ━━━━━━━━━━━━━━━━━ BUTTONS ━━━━━━━━━━━━━━━━━ */
+.btn-cta {
+  display: inline-flex; align-items: center;
+  padding: 11px 26px; border-radius: var(--radius-btn);
+  background: var(--blue-600); color: #fff;
+  font-size: 15px; font-weight: 600;
+  box-shadow: var(--shadow-btn);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.btn-cta:hover { background: var(--blue-700); transform: translateY(-1px); box-shadow: 0 4px 18px rgba(37,99,235,.45); }
+.btn-cta:active { transform: scale(.98); }
+.btn-cta.sm { padding: 8px 18px; font-size: 13px; }
+
+.btn-ghost {
+  display: inline-flex; align-items: center;
+  padding: 11px 26px; border-radius: var(--radius-btn);
+  background: transparent; color: var(--text-muted);
+  font-size: 15px; font-weight: 500;
+  border: 1.5px solid var(--border-color);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+.btn-ghost:hover { background: var(--blue-50); border-color: var(--blue-200); color: var(--blue-600); }
+
+.back-link {
+  display: inline-flex; align-items: center;
+  padding: 7px 14px; border-radius: 8px;
+  background: var(--blue-50); color: var(--text-muted);
+  font-size: 14px; font-weight: 500;
+  margin-bottom: 28px;
+  transition: background var(--transition), color var(--transition);
+}
+.back-link:hover { background: var(--blue-100); color: var(--blue-600); }
+
+/* ━━━━━━━━━━━━━━━━━ HERO ━━━━━━━━━━━━━━━━━ */
+.hero-wrap {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-color);
+  padding: 72px 0 64px;
+  overflow: hidden;
+  position: relative;
+}
+.hero-wrap::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 900px 500px at 80% 50%, var(--blue-50) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--blue-600); background: var(--blue-50);
+  border: 1px solid var(--blue-200);
+  padding: 5px 14px; border-radius: 99px;
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-size: clamp(28px, 4vw, 48px); font-weight: 800; line-height: 1.12;
+  color: var(--text-main); margin-bottom: 18px;
+}
+.accent-text {
+  background: linear-gradient(135deg, var(--blue-600), #60a5fa);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-lead { font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px; }
+.hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+.hero-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.stat-chip {
+  padding: 6px 14px; border-radius: 99px;
+  background: var(--surface-2); border: 1px solid var(--border-color);
+  font-size: 13px; color: var(--text-muted); font-weight: 500;
+}
+.stat-chip span { color: var(--blue-600); font-weight: 700; }
+
+/* Hero panel (right side) */
+.hero-panel {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+  animation: floatPanel 5s ease-in-out infinite;
+}
+@keyframes floatPanel {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.panel-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--blue-600); background: var(--blue-50); padding: 4px 10px; border-radius: 6px; }
+.panel-score { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+.panel-question { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; }
+.panel-sentence { font-size: 17px; font-weight: 600; color: var(--text-main); font-style: italic; margin-bottom: 18px; line-height: 1.5; }
+.panel-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.panel-opt {
+  padding: 9px 14px; border-radius: 8px;
+  border: 1.5px solid var(--border-color);
+  font-size: 14px; color: var(--text-muted); background: var(--surface-2);
+}
+.panel-opt.active { border-color: var(--blue-500); background: var(--blue-50); color: var(--blue-700); font-weight: 600; }
+.panel-bar { height: 5px; background: var(--border-color); border-radius: 99px; overflow: hidden; }
+.panel-fill { height: 100%; background: var(--blue-600); border-radius: 99px; }
+
+/* ━━━━━━━━━━━━━━━━━ DAILY STRIP ━━━━━━━━━━━━━━━━━ */
+.daily-strip { background: linear-gradient(135deg, var(--blue-600), var(--blue-700)); padding: 20px 0; }
+.daily-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.daily-left { display: flex; align-items: center; gap: 14px; }
+.daily-fire-icon { font-size: 26px; color: #fbbf24; }
+.daily-title { font-size: 15px; font-weight: 700; color: #fff; }
+.daily-desc { font-size: 13px; color: rgba(255,255,255,.8); }
+
+/* ━━━━━━━━━━━━━━━━━ FEATURES ━━━━━━━━━━━━━━━━━ */
+.features-section { padding: 60px 0; }
+.section-heading { font-size: 26px; font-weight: 800; text-align: center; color: var(--text-main); margin-bottom: 8px; }
+.section-sub { text-align: center; color: var(--text-muted); font-size: 15px; }
+.feat-block {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 26px 22px;
+  height: 100%;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.feat-block:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+.feat-ico {
+  width: 46px; height: 46px; border-radius: 12px;
+  background: var(--blue-50); color: var(--blue-600);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 14px;
+}
+.feat-ico.alt1 { background: #fef3c7; color: #d97706; }
+.feat-ico.alt2 { background: #d1fae5; color: #059669; }
+.feat-ico.alt3 { background: #fce7f3; color: #db2777; }
+.feat-block h5 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.feat-block p  { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+/* ━━━━━━━━━━━━━━━━━ LEVEL CARD ━━━━━━━━━━━━━━━━━ */
+.level-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 14px 20px;
+  box-shadow: var(--shadow-card);
+  text-align: right;
+}
+.lc-lvl { font-size: 14px; font-weight: 700; color: var(--blue-600); }
+.lc-xp  { font-size: 12px; color: var(--text-faint); font-weight: 500; }
+
+/* ━━━━━━━━━━━━━━━━━ DAILY CARD (lessons page) ━━━━━━━━━━━━━━━━━ */
+.daily-card-lessons {
+  background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+  color: #fff; border-radius: var(--radius-card);
+  padding: 16px 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.daily-xp-badge {
+  font-size: 16px; font-weight: 800;
+  background: rgba(255,255,255,.15);
+  padding: 7px 14px; border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* ━━━━━━━━━━━━━━━━━ FILTER TABS ━━━━━━━━━━━━━━━━━ */
+.filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.ftab {
+  padding: 7px 16px; border-radius: 99px;
+  background: var(--surface); border: 1.5px solid var(--border-color);
+  font-size: 13px; font-weight: 500; color: var(--text-muted);
+  transition: all var(--transition);
+}
+.ftab:hover  { border-color: var(--blue-200); color: var(--blue-600); background: var(--blue-50); }
+.ftab.active { background: var(--blue-600); border-color: var(--blue-600); color: #fff; }
+
+/* ━━━━━━━━━━━━━━━━━ LESSON CARDS ━━━━━━━━━━━━━━━━━ */
+.lesson-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-card);
+  padding: 20px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.lesson-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--blue-600);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--transition);
+}
+.lesson-card:hover:not(.locked)::before { transform: scaleX(1); }
+.lesson-card:hover:not(.locked) { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(37,99,235,.13); border-color: var(--blue-200) !important; }
+.lesson-card.locked { opacity: .5; cursor: not-allowed; }
+.lesson-card.completed { border-color: #86efac !important; }
+.lesson-card.completed::before { background: #22c55e; transform: scaleX(1); }
+
+.lc-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.lc-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--blue-600); font-family: monospace; }
+.lc-cat {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
+  padding: 2px 8px; border-radius: 4px;
+  background: var(--blue-50); color: var(--blue-600);
+}
+.lc-cat.syn  { background: #fef3c7; color: #92400e; }
+.lc-cat.ort  { background: #d1fae5; color: #065f46; }
+.lc-cat.sp   { background: #fce7f3; color: #9d174d; }
+.lc-cat.pun  { background: #ede9fe; color: #4c1d95; }
+.lc-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+.lc-desc  { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 14px; }
+.lc-footer { display: flex; align-items: center; justify-content: space-between; }
+.lc-xp { font-size: 12px; color: var(--blue-600); font-weight: 700; background: var(--blue-50); padding: 3px 10px; border-radius: 99px; }
+.lc-tasks { font-size: 12px; color: var(--text-faint); }
+.lc-done-badge { position: absolute; top: 14px; right: 14px; width: 24px; height: 24px; border-radius: 50%; background: #d1fae5; color: #059669; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.lc-lock-ico { position: absolute; top: 12px; right: 12px; font-size: 16px; color: var(--text-faint); }
+
+/* ━━━━━━━━━━━━━━━━━ LESSON DETAIL ━━━━━━━━━━━━━━━━━ */
+.lesson-detail-wrap { max-width: 760px; }
+
+.lesson-hero-strip {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+}
+.lesson-title { font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
+.lesson-subtitle { font-size: 14px; color: var(--text-muted); }
+
+/* Theory block */
+.theory-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 26px 28px;
+  margin-bottom: 20px;
+}
+.theory-card h4 {
+  font-size: 15px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--blue-600);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+}
+.theory-card p  { font-size: 15px; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
+.theory-card p:last-child { margin-bottom: 0; }
+
+.term-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 14px; }
+.term-table th { background: var(--blue-50); color: var(--blue-700); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; padding: 8px 12px; border: 1px solid var(--border-color); }
+.term-table td { padding: 9px 12px; border: 1px solid var(--border-color); color: var(--text-main); vertical-align: top; }
+.term-table tr:nth-child(even) td { background: var(--surface-2); }
+
+.example-block {
+  background: var(--blue-50);
+  border-left: 3px solid var(--blue-500);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.example-block strong { color: var(--blue-700); }
+.example-block span   { color: var(--text-muted); }
+
+.tip-block {
+  background: #fef3c7; border-left: 3px solid #f59e0b;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px; margin-top: 14px;
+  font-size: 13px; color: #92400e;
+}
+.tip-block strong { font-weight: 700; }
+
+/* Question block */
+.q-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 26px 28px;
+  margin-bottom: 20px;
+}
+.q-label {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--blue-600);
+  font-family: monospace; margin-bottom: 8px;
+}
+.q-type-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
+  padding: 3px 10px; border-radius: 5px;
+  background: var(--surface-2); color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.q-text { font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 6px; line-height: 1.5; }
+.q-situation {
+  background: var(--surface-2); border: 1px solid var(--border-color);
+  border-radius: 10px; padding: 14px 16px;
+  font-size: 14px; color: var(--text-muted); font-style: italic;
+  line-height: 1.65; margin-bottom: 20px;
+}
+.q-situation strong { color: var(--text-main); font-style: normal; font-weight: 600; }
+
+/* Choice buttons */
+.choice-btn {
+  display: block; width: 100%;
+  text-align: left; padding: 12px 16px;
+  border-radius: 9px;
+  background: var(--surface-2); border: 1.5px solid var(--border-color);
+  font-size: 14px; font-weight: 500; color: var(--text-main);
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+  margin-bottom: 9px;
+}
+.choice-btn:hover:not(.disabled) { border-color: var(--blue-500); background: var(--blue-50); color: var(--blue-700); }
+.choice-btn.selected { border-color: var(--blue-500); background: var(--blue-50); color: var(--blue-700); }
+.choice-btn.correct  { border-color: #22c55e !important; background: #d1fae5 !important; color: #065f46 !important; }
+.choice-btn.wrong    { border-color: #ef4444 !important; background: #fee2e2 !important; color: #991b1b !important; }
+.choice-btn.disabled { cursor: not-allowed; }
+
+/* Text input */
+.q-input-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.q-input {
+  flex: 1; min-width: 200px; padding: 11px 15px;
+  border-radius: 9px; border: 1.5px solid var(--border-color);
+  background: var(--surface-2); color: var(--text-main);
+  font-size: 14px; font-weight: 500;
+  transition: border-color var(--transition);
+}
+.q-input:focus { outline: none; border-color: var(--blue-500); background: var(--surface); }
+.q-input.correct { border-color: #22c55e !important; background: #d1fae5 !important; color: #065f46 !important; }
+.q-input.wrong   { border-color: #ef4444 !important; background: #fee2e2 !important; color: #991b1b !important; }
+
+/* Match */
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.match-col-header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-faint); text-align: center; padding-bottom: 4px; }
+.match-item {
+  padding: 10px 14px; border-radius: 9px;
+  border: 1.5px solid var(--border-color);
+  background: var(--surface-2); color: var(--text-main);
+  font-size: 13px; font-weight: 500; text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
+.match-item:hover:not(.matched):not(.disabled) { border-color: var(--blue-500); background: var(--blue-50); color: var(--blue-700); }
+.match-item.selected { border-color: var(--blue-600); background: var(--blue-100); color: var(--blue-700); }
+.match-item.matched  { border-color: #22c55e !important; background: #d1fae5 !important; color: #065f46 !important; cursor: default; }
+.match-item.wrong-flash { border-color: #ef4444; background: #fee2e2; }
+
+/* Feedback */
+.feedback-block { border-radius: 9px; padding: 12px 16px; margin-top: 16px; font-size: 14px; font-weight: 600; display: none; }
+.feedback-block.show { display: block; }
+.feedback-block.good { background: #d1fae5; color: #065f46; border: 1px solid #86efac; }
+.feedback-block.bad  { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+/* Explain block (показывается после неправильного ответа) */
+.explain-block {
+  background: var(--blue-50); border: 1px solid var(--blue-200);
+  border-radius: 9px; padding: 12px 16px; margin-top: 10px;
+  font-size: 13px; color: var(--blue-700); line-height: 1.6; display: none;
+}
+.explain-block.show { display: block; }
+
+.next-wrap { text-align: center; margin-top: 22px; display: none; }
+.next-wrap.show { display: block; }
+
+/* Lesson complete */
+.complete-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 48px 32px; text-align: center;
+}
+.complete-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--blue-50); color: var(--blue-600);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px; margin: 0 auto 20px;
+}
+.complete-icon.perfect { background: #fef3c7; color: #d97706; }
+
+/* ━━━━━━━━━━━━━━━━━ PROFILE ━━━━━━━━━━━━━━━━━ */
+.profile-hero {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 28px 32px;
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  box-shadow: var(--shadow-card);
+}
+.prof-ava {
+  width: 76px; height: 76px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue-600), #60a5fa);
+  color: #fff; font-size: 28px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.stat-tile {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 18px; text-align: center;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition);
+}
+.stat-tile:hover { transform: translateY(-2px); }
+.st-num { font-size: 28px; font-weight: 800; color: var(--blue-600); font-family: 'Courier New', monospace; margin-bottom: 4px; }
+.st-lbl { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+
+/* Achievements */
+.achiev-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 18px 14px; text-align: center;
+  transition: transform var(--transition);
+}
+.achiev-card:hover { transform: translateY(-2px); }
+.achiev-card.locked  { opacity: .35; filter: grayscale(1); }
+.achiev-card.unlocked { border-color: #fbbf24; }
+.ach-ico { font-size: 26px; color: var(--blue-600); margin-bottom: 8px; }
+.ach-name { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.ach-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+/* ━━━━━━━━━━━━━━━━━ TOAST ━━━━━━━━━━━━━━━━━ */
+.xp-toast-el {
+  background: var(--blue-600);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  min-width: 160px;
+  box-shadow: 0 4px 20px rgba(37,99,235,.5);
+}
+
+/* ━━━━━━━━━━━━━━━━━ LEVEL UP MODAL ━━━━━━━━━━━━━━━━━ */
+.lvlup-icon {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: #fef3c7; color: #d97706;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; margin: 0 auto;
+}
+
+/* ━━━━━━━━━━━━━━━━━ RESPONSIVE ━━━━━━━━━━━━━━━━━ */
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-panel { display: none; }
+  .hero-title { font-size: 28px; }
+  .hero-wrap { padding: 48px 0 40px; }
+  .match-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .q-card, .theory-card { padding: 20px 18px; }
+  .daily-inner { flex-direction: column; align-items: flex-start; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════ -->
+  <nav class="navbar navbar-expand-md sticky-top" id="mainNavbar">
+    <div class="container-xl">
+      <a class="navbar-brand" href="#" onclick="App.showPage('home'); return false;">
+        <span class="brand-mark">ER</span>
+        <span class="brand-text">EasyRus</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-md-center gap-md-1">
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="App.showPage('lessons'); return false;">
+              <i class="fa-solid fa-book-open me-1"></i>Уроки
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="App.showPage('profile'); return false;">
+              <i class="fa-solid fa-user me-1"></i>Профиль
+            </a>
+          </li>
+          <li class="nav-item ms-md-2">
+            <div class="xp-chip" id="navXPChip">
+              <i class="fa-solid fa-bolt"></i>
+              <span id="navXPVal">0 XP</span>
+            </div>
+          </li>
+          <li class="nav-item ms-1">
+            <button class="btn-theme" id="themeToggle" title="Сменить тему">
+              <i class="fa-solid fa-moon" id="themeIcon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       PAGE: HOME
+  ═══════════════════════════════════════ -->
+  <div id="page-home" class="page">
+
+    <!-- Hero -->
+    <section class="hero-wrap">
+      <div class="hero-grid container-xl">
+        <div class="hero-copy">
+          <div class="hero-eyebrow">Уровень 6–8 класс · Грамматика · Практика</div>
+          <h1 class="hero-title">
+            Русский язык —<br>
+            <span class="accent-text">серьёзно и эффективно</span>
+          </h1>
+          <p class="hero-lead">
+            Настоящая грамматика, языковые ситуации и терминология из школьного курса.
+            Не карточки — а полноценные упражнения на уровне учебника.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-cta" onclick="App.showPage('lessons')">
+              Начать обучение
+              <i class="fa-solid fa-arrow-right ms-2"></i>
+            </button>
+            <button class="btn-ghost" onclick="App.showPage('profile')">
+              Мой прогресс
+            </button>
+          </div>
+          <div class="hero-chips">
+            <div class="stat-chip"><span id="homeStatLessons">12</span> уроков</div>
+            <div class="stat-chip"><span>8</span> уровней</div>
+            <div class="stat-chip"><span>50+</span> заданий</div>
+            <div class="stat-chip"><span>12</span> ачивок</div>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="panel-header">
+            <span class="panel-tag">Урок 3 · Синтаксис</span>
+            <span class="panel-score">8 / 10</span>
+          </div>
+          <div class="panel-question">
+            Укажи грамматическую основу предложения:
+          </div>
+          <div class="panel-sentence">
+            «Весенний ветер разбудил сонный город.»
+          </div>
+          <div class="panel-options">
+            <div class="panel-opt active">ветер разбудил</div>
+            <div class="panel-opt">весенний ветер</div>
+            <div class="panel-opt">разбудил город</div>
+          </div>
+          <div class="panel-bar">
+            <div class="panel-fill" style="width:80%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daily quest -->
+    <section class="daily-strip">
+      <div class="container-xl">
+        <div class="daily-inner">
+          <div class="daily-left">
+            <i class="fa-solid fa-fire daily-fire-icon"></i>
+            <div>
+              <div class="daily-title">Задание дня</div>
+              <div class="daily-desc" id="homeDailyDesc">Загрузка...</div>
+            </div>
+          </div>
+          <button class="btn-cta sm" onclick="App.showPage('lessons')">
+            Выполнить <i class="fa-solid fa-chevron-right ms-1"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature blocks -->
+    <section class="features-section">
+      <div class="container-xl">
+        <h2 class="section-heading">Что тебя ждёт</h2>
+        <p class="section-sub">Курс построен по программе 6–8 классов</p>
+        <div class="row g-4 mt-1">
+          <div class="col-md-6 col-lg-3">
+            <div class="feat-block">
+              <div class="feat-ico"><i class="fa-solid fa-layer-group"></i></div>
+              <h5>Морфология</h5>
+              <p>Части речи, склонения, спряжения, виды и залоги — системно и с примерами</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="feat-block">
+              <div class="feat-ico alt1"><i class="fa-solid fa-diagram-project"></i></div>
+              <h5>Синтаксис</h5>
+              <p>Члены предложения, типы придаточных, пунктуация — разбор предложений</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="feat-block">
+              <div class="feat-ico alt2"><i class="fa-solid fa-comments"></i></div>
+              <h5>Речевые ситуации</h5>
+              <p>Реальные диалоги, официальный и разговорный стиль, стилистика текста</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="feat-block">
+              <div class="feat-ico alt3"><i class="fa-solid fa-trophy"></i></div>
+              <h5>Геймификация</h5>
+              <p>XP, уровни и достижения — прогресс виден сразу, учиться интереснее</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PAGE: LESSONS
+  ═══════════════════════════════════════ -->
+  <div id="page-lessons" class="page d-none">
+    <div class="container-xl py-5">
+
+      <!-- Top bar -->
+      <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4">
+        <div>
+          <h1 class="fw-bold mb-1">Уроки</h1>
+          <p class="text-body-secondary mb-0">Выбери тему и начни практику</p>
+        </div>
+        <div class="level-card" id="lessonsLevelCard">
+          <div class="lc-lvl" id="lessonsLevelText">Ур. 1 · Новичок</div>
+          <div class="progress my-2" style="height:5px;width:170px">
+            <div class="progress-bar bg-primary" id="lessonsLvlFill" style="width:0%"></div>
+          </div>
+          <div class="lc-xp" id="lessonsXPText">0 XP</div>
+        </div>
+      </div>
+
+      <!-- Daily quest -->
+      <div class="daily-card-lessons mb-4">
+        <div class="d-flex align-items-center gap-3">
+          <i class="fa-solid fa-bullseye fa-lg"></i>
+          <div>
+            <div class="fw-semibold">Задание дня</div>
+            <div class="small opacity-75" id="dailyQuestDesc">Загрузка...</div>
+          </div>
+        </div>
+        <div class="daily-xp-badge">+<span id="dailyQuestXP">30</span> XP</div>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="filter-tabs mb-4" id="filterTabs">
+        <button class="ftab active" data-cat="all">Все</button>
+        <button class="ftab" data-cat="morphology">Морфология</button>
+        <button class="ftab" data-cat="syntax">Синтаксис</button>
+        <button class="ftab" data-cat="ortho">Орфография</button>
+        <button class="ftab" data-cat="speech">Речевые ситуации</button>
+        <button class="ftab" data-cat="punctuation">Пунктуация</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="row g-3" id="lessonsGrid"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PAGE: LESSON DETAIL
+  ═══════════════════════════════════════ -->
+  <div id="page-lesson-detail" class="page d-none">
+    <div class="container py-5 lesson-detail-wrap">
+      <button class="back-link" onclick="App.showPage('lessons')">
+        <i class="fa-solid fa-chevron-left me-1"></i>Назад к урокам
+      </button>
+      <div id="lessonContent"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PAGE: PROFILE
+  ═══════════════════════════════════════ -->
+  <div id="page-profile" class="page d-none">
+    <div class="container-xl py-5">
+      <h1 class="fw-bold mb-4">Мой профиль</h1>
+
+      <div class="profile-hero mb-4">
+        <div class="prof-ava" id="profAvatar">А</div>
+        <div class="flex-grow-1">
+          <h3 class="fw-bold mb-1" id="profName">Ученик</h3>
+          <div class="text-primary fw-semibold small mb-2" id="profLevel">Уровень 1</div>
+          <div class="progress mb-1" style="height:8px;max-width:320px">
+            <div class="progress-bar bg-primary" id="profXPFill" style="width:0%"></div>
+          </div>
+          <div class="small text-muted" id="profXPTxt">0 / 100 XP</div>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-4">
+          <h6 class="fw-bold mb-3"><i class="fa-solid fa-pen me-2 text-primary"></i>Изменить имя</h6>
+          <div class="d-flex gap-2 flex-wrap">
+            <input type="text" id="nameInput" class="form-control" style="max-width:260px"
+                   placeholder="Твоё имя" maxlength="24" />
+            <button class="btn btn-primary" onclick="App.saveName()">Сохранить</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+          <div class="stat-tile">
+            <div class="st-num" id="statLessons">0</div>
+            <div class="st-lbl">Уроков пройдено</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-tile">
+            <div class="st-num" id="statXP">0</div>
+            <div class="st-lbl">Всего XP</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-tile">
+            <div class="st-num" id="statStreak">0</div>
+            <div class="st-lbl">Дней подряд</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-tile">
+            <div class="st-num" id="statAccuracy">0%</div>
+            <div class="st-lbl">Точность</div>
+          </div>
+        </div>
+      </div>
+
+      <h5 class="fw-bold mb-3"><i class="fa-solid fa-award me-2 text-primary"></i>Достижения</h5>
+      <div class="row g-3" id="achievGrid"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       TOAST
+  ═══════════════════════════════════════ -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:1200">
+    <div id="xpToast" class="xp-toast-el toast" role="alert">
+      <div class="d-flex align-items-center gap-2 toast-body fw-semibold">
+        <i class="fa-solid fa-bolt"></i>
+        <span id="xpToastText">+50 XP</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       LEVEL UP MODAL
+  ═══════════════════════════════════════ -->
+  <div class="modal fade" id="levelUpModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content rounded-4 border-0 shadow-lg text-center p-2">
+        <div class="modal-body py-4">
+          <div class="lvlup-icon"><i class="fa-solid fa-star"></i></div>
+          <h4 class="fw-bold mt-3 mb-1">Новый уровень!</h4>
+          <div class="display-5 fw-bold text-primary my-2" id="modalLevelNum">2</div>
+          <p class="text-muted mb-4" id="modalLevelTitle">Начинающий</p>
+          <button class="btn btn-primary px-5" data-bs-dismiss="modal">Продолжить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+// ====================================================
+//  EasyRus — app.ts
+//  Грамматика и практика для 6–8 класса
+//  Компиляция: tsc app.ts --target ES2017 --lib ES2017,DOM --skipLibCheck
+// ====================================================
+// ── КОНСТАНТЫ ─────────────────────────────────────────
+const XP_PER_CORRECT = 20;
+const XP_PER_LESSON = 60;
+const LEVELS = [
+    { lvl: 1, title: "Новичок", xpNeeded: 0 },
+    { lvl: 2, title: "Стажёр", xpNeeded: 150 },
+    { lvl: 3, title: "Ученик", xpNeeded: 350 },
+    { lvl: 4, title: "Знаток", xpNeeded: 650 },
+    { lvl: 5, title: "Грамотей", xpNeeded: 1000 },
+    { lvl: 6, title: "Редактор", xpNeeded: 1500 },
+    { lvl: 7, title: "Лингвист", xpNeeded: 2100 },
+    { lvl: 8, title: "Мастер слова", xpNeeded: 3000 },
+];
+const DAILY_QUESTS = [
+    { desc: "Пройди 2 урока сегодня", xp: 40 },
+    { desc: "Ответь правильно на 8 вопросов подряд", xp: 35 },
+    { desc: "Заработай 150 XP за сегодня", xp: 50 },
+    { desc: "Пройди любой урок без единой ошибки", xp: 60 },
+    { desc: "Выполни 5 ситуативных заданий", xp: 45 },
+];
+const ACHIEVEMENTS = [
+    { id: "first", icon: "fa-solid fa-flag", name: "Первый шаг", desc: "Пройди первый урок", condition: s => s.lessonsCompleted >= 1 },
+    { id: "three", icon: "fa-solid fa-book", name: "Три урока", desc: "Пройди 3 урока", condition: s => s.lessonsCompleted >= 3 },
+    { id: "all", icon: "fa-solid fa-graduation-cap", name: "Отличник", desc: "Пройди все уроки", condition: s => s.lessonsCompleted >= LESSONS_DATA.length },
+    { id: "xp200", icon: "fa-solid fa-bolt", name: "200 XP", desc: "Набери 200 XP", condition: s => s.xp >= 200 },
+    { id: "xp600", icon: "fa-solid fa-fire", name: "600 XP", desc: "Набери 600 XP", condition: s => s.xp >= 600 },
+    { id: "xp1500", icon: "fa-solid fa-gem", name: "1500 XP", desc: "Набери 1500 XP", condition: s => s.xp >= 1500 },
+    { id: "lvl3", icon: "fa-solid fa-rocket", name: "Разгон", desc: "Достигни 3-го уровня", condition: s => s.level >= 3 },
+    { id: "lvl6", icon: "fa-solid fa-star", name: "Профессионал", desc: "Достигни 6-го уровня", condition: s => s.level >= 6 },
+    { id: "streak3", icon: "fa-solid fa-calendar-check", name: "3 дня подряд", desc: "Занимайся 3 дня подряд", condition: s => s.streak >= 3 },
+    { id: "streak7", icon: "fa-solid fa-calendar-week", name: "Неделя!", desc: "7 дней подряд", condition: s => s.streak >= 7 },
+    { id: "acc90", icon: "fa-solid fa-bullseye", name: "Снайпер", desc: "Точность 90%+ (10+ ответов)", condition: s => (s.correctAnswers + s.wrongAnswers) >= 10 && (s.correctAnswers / (s.correctAnswers + s.wrongAnswers)) >= 0.9 },
+    { id: "perf5", icon: "fa-solid fa-circle-check", name: "Идеальный", desc: "5 уроков без ошибок", condition: s => s.perfectLessons >= 5 },
+];
+// ── УРОКИ ─────────────────────────────────────────────
+// 12 уроков, 7–8 вопросов на урок, серьёзная грамматика
+const LESSONS_DATA = [
+    // ─── 1. СУЩЕСТВИТЕЛЬНОЕ: ПАДЕЖИ ────────────────────────
+    {
+        id: 1, cat: "morphology",
+        title: "Падежи имени существительного",
+        subtitle: "Морфология · 6 класс",
+        xp: 70,
+        theory: [
+            {
+                heading: "Система падежей",
+                body: `В русском языке шесть падежей. Каждый отвечает на определённые вопросы и выражает определённое значение.
+Падеж — это грамматическая форма имени существительного (и других именных частей речи), которая показывает его связь с другими словами в предложении.`,
+                termTable: [
+                    { term: "Именительный (И.п.)", def: "Кто? Что? — подлежащее", example: "Книга лежит на столе." },
+                    { term: "Родительный (Р.п.)", def: "Кого? Чего? — принадлежность, отсутствие", example: "Нет книги." },
+                    { term: "Дательный (Д.п.)", def: "Кому? Чему? — адресат действия", example: "Дать книге." },
+                    { term: "Винительный (В.п.)", def: "Кого? Что? — прямой объект", example: "Читать книгу." },
+                    { term: "Творительный (Т.п.)", def: "Кем? Чем? — орудие, совместность", example: "Написать книгой (ручкой)." },
+                    { term: "Предложный (П.п.)", def: "О ком? О чём? — всегда с предлогом", example: "Думать о книге." },
+                ]
+            },
+            {
+                heading: "Как определить падеж?",
+                body: `Алгоритм определения падежа:
+1) Найди существительное в предложении.
+2) Найди слово, к которому оно относится.
+3) Задай вопрос от этого слова к существительному.
+4) По вопросу определи падеж.`,
+                tip: "Запомни: именительный падеж — единственный, в котором существительное является ПОДЛЕЖАЩИМ. В остальных падежах — это второстепенный член предложения."
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "В каком падеже стоит выделенное слово? «Мы говорили о ПОБЕДЕ нашей команды.»",
+                choices: ["Родительный", "Дательный", "Творительный", "Предложный"],
+                answer: "Предложный",
+                explain: "Слово «победе» отвечает на вопрос «о чём?» и употреблено с предлогом «о» — это признаки предложного падежа."
+            },
+            {
+                type: "choice",
+                text: "Укажи существительное в родительном падеже.",
+                choices: ["Читать книгу", "Нет времени", "Думать о друге", "Прийти к брату"],
+                answer: "Нет времени",
+                explain: "«Нет (чего?) времени» — родительный падеж. Используется при отрицании («нет») и при обозначении отсутствия чего-либо."
+            },
+            {
+                type: "input",
+                text: "Просклоняй слово «учитель» — запиши форму творительного падежа:",
+                answer: "учителем",
+                hint: "учителем",
+                explain: "Творительный падеж отвечает на вопрос «кем?»: кем? — учителем. Окончание -ем для существительных 2-го склонения."
+            },
+            {
+                type: "situation",
+                text: "Выбери правильный вариант предложения:",
+                situation: `Ученик пишет сочинение. Ему нужно использовать слово «работа» в дательном падеже. Какое из предложений составлено правильно?`,
+                choices: [
+                    "Я посвятил эту книгу работе.",
+                    "Я думал о работа.",
+                    "Я устал от работе.",
+                    "Я написал работу."
+                ],
+                answer: "Я посвятил эту книгу работе.",
+                explain: "Дательный падеж: посвятил (кому? чему?) — работе. Остальные варианты содержат ошибки в окончаниях."
+            },
+            {
+                type: "match",
+                text: "Сопоставь падеж и вопрос:",
+                pairs: [
+                    { left: "Именительный", right: "Кто? Что?" },
+                    { left: "Родительный", right: "Кого? Чего?" },
+                    { left: "Дательный", right: "Кому? Чему?" },
+                    { left: "Творительный", right: "Кем? Чем?" },
+                ]
+            },
+            {
+                type: "choice",
+                text: "В предложении «Отец гордится СЫНОМ» слово «сыном» стоит в падеже:",
+                choices: ["Родительный", "Дательный", "Творительный", "Предложный"],
+                answer: "Творительный",
+                explain: "Гордится (кем?) — сыном. Вопрос «кем?» — признак творительного падежа. Окончание -ом также характерно для Т.п. существительных 2-го склонения."
+            },
+            {
+                type: "input",
+                text: "Запиши слово «дорога» в форме родительного падежа множественного числа:",
+                answer: "дорог",
+                hint: "дорог",
+                explain: "Р.п. мн.ч. от «дорога» — «дорог» (нет чего? — дорог). Нулевое окончание в этой форме."
+            },
+        ]
+    },
+    // ─── 2. ПРИЛАГАТЕЛЬНОЕ: СТЕПЕНИ СРАВНЕНИЯ ───────────────
+    {
+        id: 2, cat: "morphology",
+        title: "Степени сравнения прилагательных",
+        subtitle: "Морфология · 6 класс",
+        xp: 70,
+        theory: [
+            {
+                heading: "Три степени сравнения",
+                body: `Качественные прилагательные имеют степени сравнения, которые показывают, в какой мере предмет обладает данным признаком.`,
+                termTable: [
+                    { term: "Положительная", def: "Признак без сравнения", example: "умный, высокий" },
+                    { term: "Сравнительная (простая)", def: "Суффиксы -ее/-ей, -е, -ше", example: "умнее, выше, старше" },
+                    { term: "Сравнительная (составная)", def: "более/менее + прилагательное", example: "более умный" },
+                    { term: "Превосходная (простая)", def: "Суффиксы -ейш/-айш", example: "умнейший, высочайший" },
+                    { term: "Превосходная (составная)", def: "самый/наиболее + прилагательное", example: "самый умный" },
+                ]
+            },
+            {
+                heading: "Типичные ошибки",
+                body: `Грубая ошибка — смешивать простую и составную форму: «более умнее», «самый умнейший» — так говорить НЕЛЬЗЯ. Это плеоназм (двойное сравнение).`,
+                tip: "Запомни: нельзя соединять «более» с суффиксом -ее, а «самый» с суффиксом -ейш. Выбери одно: или простую, или составную форму."
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "Какая форма является ОШИБОЧНОЙ?",
+                choices: ["более высокий", "умнее", "самый умнейший", "наиболее точный"],
+                answer: "самый умнейший",
+                explain: "«Самый умнейший» — ошибка. Здесь одновременно используется составная (самый) и простая (умнейший) превосходная степень. Правильно: «умнейший» ИЛИ «самый умный»."
+            },
+            {
+                type: "input",
+                text: "Образуй простую сравнительную степень от прилагательного «тихий»:",
+                answer: "тише",
+                hint: "тише",
+                explain: "Тихий → тише (суффикс -е с чередованием х/ш). Не «тихее»!"
+            },
+            {
+                type: "situation",
+                text: "Исправь ошибку в предложении и запиши правильный вариант слова:",
+                situation: `Ученик написал в сочинении: «Эта задача более легче предыдущей». Учитель подчеркнул ошибку. Какое слово нужно исправить? Напиши только одно правильное слово.`,
+                answer: "легче",
+                hint: "легче",
+                explain: "«Более легче» — плеоназм. Нужно выбрать одну форму: «легче» (простая сравнительная) или «более лёгкая» (составная). Правильно: «легче»."
+            },
+            {
+                type: "choice",
+                text: "В каком примере степень сравнения образована правильно?",
+                choices: ["более лучший", "красивее", "самый высочайший", "более добрее"],
+                answer: "красивее",
+                explain: "«Красивее» — правильная простая сравнительная степень с суффиксом -ее. Остальные варианты содержат двойное сравнение."
+            },
+            {
+                type: "match",
+                text: "Сопоставь прилагательное с его сравнительной степенью:",
+                pairs: [
+                    { left: "плохой", right: "хуже" },
+                    { left: "хороший", right: "лучше" },
+                    { left: "маленький", right: "меньше" },
+                    { left: "большой", right: "больше" },
+                ]
+            },
+            {
+                type: "choice",
+                text: "Укажи прилагательное в ПРЕВОСХОДНОЙ степени:",
+                choices: ["интереснее", "самый интересный", "более интересный", "интересный"],
+                answer: "самый интересный",
+                explain: "Превосходная степень обозначает наивысшую степень признака. «Самый интересный» — составная превосходная степень. «Интереснее» — сравнительная."
+            },
+            {
+                type: "input",
+                text: "Образуй простую превосходную степень от прилагательного «строгий»:",
+                answer: "строжайший",
+                hint: "строжайший",
+                explain: "Строгий → строжайший (суффикс -айш с чередованием г/ж). Один из случаев чередования согласных при образовании превосходной степени."
+            },
+        ]
+    },
+    // ─── 3. ГЛАГОЛ: ВИД И НАКЛОНЕНИЕ ───────────────────────
+    {
+        id: 3, cat: "morphology",
+        title: "Вид глагола. Наклонения",
+        subtitle: "Морфология · 7 класс",
+        xp: 80,
+        theory: [
+            {
+                heading: "Вид глагола",
+                body: `Вид — постоянный морфологический признак глагола.
+Несовершенный вид (НСВ): отвечает на вопрос «что делать?», обозначает действие в процессе, без указания на результат.
+Совершенный вид (СВ): отвечает на вопрос «что сделать?», обозначает завершённое действие или его результат.`,
+                examples: [
+                    { text: "читать (НСВ) → прочитать (СВ)", comment: "видовая пара" },
+                    { text: "писать (НСВ) → написать (СВ)", comment: "видовая пара" },
+                    { text: "говорить (НСВ) — нет пары", comment: "одновидовой глагол" },
+                ]
+            },
+            {
+                heading: "Наклонения глагола",
+                body: `Наклонение показывает, как говорящий оценивает действие — как реальное, желательное или условное.`,
+                termTable: [
+                    { term: "Изъявительное", def: "Реальное действие (было, есть, будет)", example: "Я читаю. Он читал. Мы прочитаем." },
+                    { term: "Повелительное", def: "Приказ, просьба, побуждение", example: "Читай! Прочитайте! Пусть читает." },
+                    { term: "Условное (сослаг.)", def: "Желаемое или возможное действие", example: "Читал бы. Прочитала бы." },
+                ],
+                tip: "Условное наклонение образуется: форма прошедшего времени + частица БЫ (Б). Частица пишется РАЗДЕЛЬНО."
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "Определи вид глагола «объяснять»:",
+                choices: ["Совершенный", "Несовершенный", "Двувидовой", "Безличный"],
+                answer: "Несовершенный",
+                explain: "«Объяснять» отвечает на вопрос «что делать?» — несовершенный вид. Видовая пара: объяснить (СВ)."
+            },
+            {
+                type: "match",
+                text: "Сопоставь глагол с его видовой парой:",
+                pairs: [
+                    { left: "делать", right: "сделать" },
+                    { left: "решать", right: "решить" },
+                    { left: "строить", right: "построить" },
+                    { left: "учить", right: "выучить" },
+                ]
+            },
+            {
+                type: "situation",
+                text: "Выбери правильный вариант:",
+                situation: `На уроке учитель попросил: «Напишите глагол в условном наклонении». Вася написал: «бы читал». Петя написал: «читал бы». Коля написал: «читайте». Кто ответил правильно?`,
+                choices: ["Вася", "Петя", "Коля", "Все трое"],
+                answer: "Петя",
+                explain: "Условное наклонение: форма прошедшего времени + частица «бы». Правильный порядок не фиксирован, но «читал бы» — стандартная форма. «Бы читал» тоже возможно, но «читайте» — повелительное наклонение."
+            },
+            {
+                type: "input",
+                text: "Образуй форму повелительного наклонения 2-го лица ед.ч. от глагола «молчать»:",
+                answer: "молчи",
+                hint: "молчи",
+                explain: "Молчать → молчи (повелительное наклонение). Суффикс -и добавляется к основе настоящего времени молч-."
+            },
+            {
+                type: "choice",
+                text: "В каком предложении глагол стоит в УСЛОВНОМ наклонении?",
+                choices: [
+                    "Если бы я знал, я бы сказал.",
+                    "Скажи мне правду.",
+                    "Он сказал правду вчера.",
+                    "Он скажет правду завтра."
+                ],
+                answer: "Если бы я знал, я бы сказал.",
+                explain: "Условное наклонение: «знал бы», «сказал бы» — глаголы в форме прош. вр. + частица «бы». Обозначает условие и следствие."
+            },
+            {
+                type: "choice",
+                text: "Какой из глаголов — совершенного вида?",
+                choices: ["бегать", "прыгать", "написать", "рисовать"],
+                answer: "написать",
+                explain: "«Написать» отвечает на вопрос «что сделать?» — совершенный вид. Остальные: «что делать?» — несовершенный вид."
+            },
+            {
+                type: "input",
+                text: "Запиши, к какому наклонению относится глагол «сделайте»:",
+                answer: "повелительное",
+                hint: "повелительное",
+                explain: "«Сделайте» — форма 2-го лица мн.ч. повелительного наклонения. Выражает побуждение к действию."
+            },
+        ]
+    },
+    // ─── 4. СИНТАКСИС: ГРАММАТИЧЕСКАЯ ОСНОВА ───────────────
+    {
+        id: 4, cat: "syntax",
+        title: "Грамматическая основа предложения",
+        subtitle: "Синтаксис · 7 класс",
+        xp: 80,
+        theory: [
+            {
+                heading: "Подлежащее и сказуемое",
+                body: `Грамматическая основа — это главные члены предложения: подлежащее и сказуемое.
+Подлежащее обозначает предмет речи и отвечает на вопросы «кто?» или «что?». Как правило, выражено именительным падежом.
+Сказуемое обозначает действие или состояние подлежащего и отвечает на вопросы «что делает?», «каков?», «кто такой?» и др.`,
+                termTable: [
+                    { term: "Простое глагольное", def: "Глагол в личной форме", example: "Ученик читает." },
+                    { term: "Составное глагольное", def: "Вспомогательный глагол + инфинитив", example: "Он начал читать." },
+                    { term: "Составное именное", def: "Глагол-связка + именная часть", example: "День был солнечным." },
+                ]
+            },
+            {
+                heading: "Особые случаи подлежащего",
+                body: `Подлежащее может быть выражено не только одним существительным. Запомни варианты:
+— местоимение: Я пришёл.
+— числительное: Двое вошли в комнату.
+— инфинитив: Учиться — твой долг.
+— неделимое словосочетание: Мама с папой пришли.`,
+                tip: "Обрати внимание: в предложении «Двое друзей поспорили» подлежащее — «двое друзей» (сочетание), а не только «двое»."
+            }
+        ],
+        questions: [
+            {
+                type: "input",
+                text: "Выпиши грамматическую основу предложения (подлежащее + сказуемое через пробел): «Осенний лес молчит.»",
+                answer: "лес молчит",
+                hint: "лес молчит",
+                explain: "Подлежащее: лес (что?). Сказуемое: молчит (что делает?). «Осенний» — определение, не входит в грамматическую основу."
+            },
+            {
+                type: "choice",
+                text: "Какой тип сказуемого в предложении: «Небо было ясным»?",
+                choices: ["Простое глагольное", "Составное глагольное", "Составное именное", "Именное без связки"],
+                answer: "Составное именное",
+                explain: "«Было» — глагол-связка (в прошедшем времени), «ясным» — именная часть (краткое прилагательное). Это составное именное сказуемое."
+            },
+            {
+                type: "situation",
+                text: "Найди предложение, в котором грамматическая основа состоит только из сказуемого (односоставное):",
+                situation: `На контрольной работе нужно найти односоставное безличное предложение. Смотри на предложения внимательно и определяй, есть ли подлежащее.`,
+                choices: [
+                    "Дождь идёт с утра.",
+                    "Темнеет рано.",
+                    "Дети играют во дворе.",
+                    "Мы уходим."
+                ],
+                answer: "Темнеет рано.",
+                explain: "«Темнеет рано» — безличное предложение: сказуемое есть, но подлежащего нет и быть не может. Остальные — двусоставные (есть и подлежащее, и сказуемое)."
+            },
+            {
+                type: "match",
+                text: "Сопоставь предложение с типом сказуемого:",
+                pairs: [
+                    { left: "Он поёт.", right: "Простое глагольное" },
+                    { left: "Он начал петь.", right: "Составное глагольное" },
+                    { left: "Он был певцом.", right: "Составное именное" },
+                    { left: "Он хочет петь.", right: "Составное глагольное" },
+                ]
+            },
+            {
+                type: "input",
+                text: "Выпиши подлежащее из предложения: «Учиться — великое дело.»",
+                answer: "учиться",
+                hint: "учиться",
+                explain: "Подлежащее выражено инфинитивом «учиться» (что? — учиться). «Великое дело» — составное именное сказуемое с нулевой связкой."
+            },
+            {
+                type: "choice",
+                text: "Каков тип сказуемого в: «Он продолжает заниматься»?",
+                choices: ["Простое глагольное", "Составное глагольное", "Составное именное", "Безличное"],
+                answer: "Составное глагольное",
+                explain: "«Продолжает» — вспомогательный глагол (фазовый), «заниматься» — инфинитив. Это составное глагольное сказуемое."
+            },
+            {
+                type: "choice",
+                text: "В предложении «Двое студентов сдали экзамен» подлежащее — это:",
+                choices: ["двое", "студентов", "двое студентов", "сдали"],
+                answer: "двое студентов",
+                explain: "Неделимое словосочетание числительного с существительным в Р.п. («двое студентов») является единым подлежащим. Сказуемое должно согласовываться с ним в мн.ч. — «сдали»."
+            },
+        ]
+    },
+    // ─── 5. СЛОЖНОЕ ПРЕДЛОЖЕНИЕ ────────────────────────────
+    {
+        id: 5, cat: "syntax",
+        title: "Сложносочинённое и сложноподчинённое предложение",
+        subtitle: "Синтаксис · 8 класс",
+        xp: 90,
+        theory: [
+            {
+                heading: "Типы сложных предложений",
+                body: `Сложное предложение состоит из двух или более простых предложений (частей), объединённых по смыслу и грамматически.`,
+                termTable: [
+                    { term: "ССП (сложносочинённое)", def: "Части соединены сочинительными союзами и равноправны", example: "Дождь прошёл, и стало свежо." },
+                    { term: "СПП (сложноподчинённое)", def: "Одна часть (придаточная) зависит от главной", example: "Я знаю, что ты прав." },
+                    { term: "БСП (бессоюзное)", def: "Части связаны без союзов, только интонацией", example: "Солнце зашло — стало темно." },
+                ]
+            },
+            {
+                heading: "Союзы в сложных предложениях",
+                body: `Сочинительные союзы: и, а, но, да, однако, зато, или, либо, то...то.
+Подчинительные союзы: что, чтобы, когда, если, хотя, потому что, так как, который, где, куда.
+Запятая в ССП ставится ПЕРЕД союзом. В СПП — перед придаточной частью.`,
+                tip: "В СПП придаточная часть может стоять ДО, ПОСЛЕ или В СЕРЕДИНЕ главной. Запятые ставятся по границам придаточной части."
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "Определи тип предложения: «Пришла весна, и природа ожила.»",
+                choices: ["Простое", "Сложносочинённое", "Сложноподчинённое", "Бессоюзное"],
+                answer: "Сложносочинённое",
+                explain: "Две равноправные части соединены союзом «и» — это ССП. Перед «и» ставится запятая."
+            },
+            {
+                type: "input",
+                text: "Запиши тип союза в предложении «Я вернусь, когда закончится урок»: сочинительный или подчинительный?",
+                answer: "подчинительный",
+                hint: "подчинительный",
+                explain: "«Когда» — подчинительный союз, присоединяет придаточное времени. Предложение является СПП."
+            },
+            {
+                type: "situation",
+                text: "Расставь знаки препинания — выбери правильный вариант:",
+                situation: `Учитель диктует предложение: «Я знаю что ты устал но работа должна быть выполнена». Нужно правильно расставить запятые. Какой вариант верный?`,
+                choices: [
+                    "Я знаю, что ты устал, но работа должна быть выполнена.",
+                    "Я знаю что, ты устал но, работа должна быть выполнена.",
+                    "Я знаю что ты устал но работа должна быть выполнена.",
+                    "Я знаю, что ты, устал, но работа должна быть выполнена."
+                ],
+                answer: "Я знаю, что ты устал, но работа должна быть выполнена.",
+                explain: "Запятая перед «что» (СПП, подчинительный союз) и перед «но» (ССП, сочинительный противительный союз). Это сложное предложение с разными типами связи."
+            },
+            {
+                type: "match",
+                text: "Сопоставь союз с его типом:",
+                pairs: [
+                    { left: "однако", right: "Сочинительный" },
+                    { left: "потому что", right: "Подчинительный" },
+                    { left: "хотя", right: "Подчинительный" },
+                    { left: "зато", right: "Сочинительный" },
+                ]
+            },
+            {
+                type: "choice",
+                text: "В каком предложении НЕПРАВИЛЬНО расставлены запятые?",
+                choices: [
+                    "Он сказал, что придёт позже.",
+                    "Дул ветер, и листья кружились.",
+                    "Я знаю, когда ты вернёшься.",
+                    "Солнце светило но было холодно."
+                ],
+                answer: "Солнце светило но было холодно.",
+                explain: "Перед противительным союзом «но» в ССП всегда ставится запятая: «Солнце светило, но было холодно.»"
+            },
+            {
+                type: "input",
+                text: "Запиши аббревиатуру типа предложения: «Лес молчал: птицы улетели на юг.»",
+                answer: "БСП",
+                hint: "БСП",
+                explain: "Части предложения связаны без союза, только интонацией (двоеточие указывает на причину). Это бессоюзное сложное предложение (БСП)."
+            },
+            {
+                type: "choice",
+                text: "Найди СПП среди предложений:",
+                choices: [
+                    "Гром гремел, и сверкала молния.",
+                    "Пришла зима — наступили морозы.",
+                    "Учись так, чтобы учителя тобой гордились.",
+                    "День прошёл, но дело не закончилось."
+                ],
+                answer: "Учись так, чтобы учителя тобой гордились.",
+                explain: "«Чтобы» — подчинительный союз цели. Придаточная часть зависит от главной. Это сложноподчинённое предложение с придаточным цели."
+            },
+        ]
+    },
+    // ─── 6. ОРФОГРАФИЯ: Н и НН ──────────────────────────────
+    {
+        id: 6, cat: "ortho",
+        title: "Н и НН в прилагательных и причастиях",
+        subtitle: "Орфография · 7 класс",
+        xp: 80,
+        theory: [
+            {
+                heading: "Н и НН в именах прилагательных",
+                body: `Правила написания Н/НН в прилагательных зависят от того, от чего образовано слово.`,
+                termTable: [
+                    { term: "НН", def: "Прилагательные на -енн, -онн", example: "торжественный, традиционный" },
+                    { term: "НН", def: "Прилагательные от существительных на -н", example: "туман → туманный" },
+                    { term: "НН", def: "Исключения: стеклянный, оловянный, деревянный", example: "— (запомни три слова)" },
+                    { term: "Н", def: "Суффиксы -ан, -ян, -ин", example: "кожаный, серебряный, куриный" },
+                    { term: "Н", def: "Исключения: ветреный", example: "ветреный день (но: безветренный)" },
+                ]
+            },
+            {
+                heading: "Н и НН в причастиях",
+                body: `Краткие причастия пишутся с одним Н. Полные страдательные причастия пишутся с НН при наличии: приставки, зависимого слова, суффикса -ова-/-ева-, глагола СВ.`,
+                examples: [
+                    { text: "Задание выполнено (кратк. прич.) — Н", comment: "краткое причастие → Н" },
+                    { text: "Выполненное задание (полн. прич. с приставкой)", comment: "→ НН" },
+                    { text: "Варёный картофель (без приставки, без завис.)", comment: "→ Н" },
+                    { text: "Сваренный картофель (с приставкой)", comment: "→ НН" },
+                ],
+                tip: "Главное правило для причастий: краткое → всегда Н. Полное → ищи приставку или зависимое слово."
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "Выбери правильное написание: «стекл_ный»",
+                choices: ["стеклянный", "стекленый", "стеклинный", "стекланый"],
+                answer: "стеклянный",
+                explain: "«Стеклянный» — исключение из правила (суффикс -ян обычно даёт Н, но три слова-исключения: стеклянный, оловянный, деревянный — пишутся с НН)."
+            },
+            {
+                type: "input",
+                text: "Вставь Н или НН: «ветре_ый день». Запиши слово целиком:",
+                answer: "ветреный",
+                hint: "ветреный",
+                explain: "«Ветреный» — исключение! Хотя суффикс -ен обычно даёт НН, в слове «ветреный» исторически пишется одно Н. Запомни это слово."
+            },
+            {
+                type: "situation",
+                text: "Выбери предложение с правильным написанием:",
+                situation: `На диктанте встречаются слова с Н/НН. Выбери правильно написанное предложение с причастием или прилагательным.`,
+                choices: [
+                    "Картина была нарисована талантливым художником.",
+                    "Картина была нарисованна талантливым художником.",
+                    "Задание было выполненно вовремя.",
+                    "Сваренный картофель подан на стол."
+                ],
+                answer: "Картина была нарисована талантливым художником.",
+                explain: "«Нарисована» — краткое причастие → Н. «Выполненно» — ошибка (краткое причастие «выполнено» → Н). «Сваренный» — полное причастие с приставкой → НН, верно, но первый вариант тоже верен."
+            },
+            {
+                type: "match",
+                text: "Сопоставь слово с нужным написанием (Н или НН):",
+                pairs: [
+                    { left: "кожа_ый", right: "Н (кожаный)" },
+                    { left: "традицио_ый", right: "НН (традиционный)" },
+                    { left: "серебря_ый", right: "Н (серебряный)" },
+                    { left: "деревя_ый", right: "НН (деревянный)" },
+                ]
+            },
+            {
+                type: "choice",
+                text: "Сколько Н в слове «несвязанный»?",
+                choices: ["одно Н", "два НН", "зависит от контекста", "нет Н"],
+                answer: "два НН",
+                explain: "«Несвязанный» — полное причастие с приставкой НЕ- (которая считается приставкой). Полное причастие с приставкой → НН."
+            },
+            {
+                type: "input",
+                text: "Вставь Н или НН: «орли_ый взгляд». Запиши слово целиком:",
+                answer: "орлиный",
+                hint: "орлиный",
+                explain: "«Орлиный» — прилагательное с суффиксом -ин (как куриный, пчелиный) → пишется одно Н."
+            },
+            {
+                type: "choice",
+                text: "Выбери строку, в которой все слова написаны правильно:",
+                choices: [
+                    "туманный, кожанный, деревянный",
+                    "туманный, кожаный, деревянный",
+                    "туманый, кожаный, деревянный",
+                    "туманный, кожаный, деревяный"
+                ],
+                answer: "туманный, кожаный, деревянный",
+                explain: "Туманный (от туман + н → НН), кожаный (суффикс -ан → Н), деревянный (исключение → НН). Всё верно."
+            },
+        ]
+    },
+    // ─── 7. ПУНКТУАЦИЯ: ОБОСОБЛЕННЫЕ ЧЛЕНЫ ─────────────────
+    {
+        id: 7, cat: "punctuation",
+        title: "Обособленные члены предложения",
+        subtitle: "Пунктуация · 8 класс",
+        xp: 85,
+        theory: [
+            {
+                heading: "Что такое обособление",
+                body: `Обособление — выделение второстепенных членов предложения запятыми (или тире) для усиления их смысловой роли.
+Обособляются: определения, приложения, обстоятельства, дополнения.`,
+                termTable: [
+                    { term: "Причастный оборот", def: "Причастие с зависимыми словами — обособляется ПОСЛЕ определяемого слова", example: "Ученик, решивший задачу, вышел к доске." },
+                    { term: "Деепричастный оборот", def: "Деепричастие с зависимыми словами — обособляется ВСЕГДА", example: "Закрыв книгу, она задумалась." },
+                    { term: "Одиночное деепричастие", def: "Также обособляется (в большинстве случаев)", example: "Думая, он молчал." },
+                ]
+            },
+            {
+                heading: "Когда НЕ обособляется причастный оборот?",
+                body: `Причастный оборот НЕ обособляется, если стоит ПЕРЕД определяемым словом:
+«Решивший задачу ученик вышел к доске» — нет запятых.
+НО: «Ученик, решивший задачу, вышел к доске» — стоит ПОСЛЕ → обособляется.`,
+                tip: "Деепричастный оборот обособляется ВСЕГДА, независимо от позиции в предложении. Это главное отличие от причастного."
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "В каком предложении ПРАВИЛЬНО расставлены запятые?",
+                choices: [
+                    "Письмо, написанное вечером отправили утром.",
+                    "Письмо написанное, вечером отправили утром.",
+                    "Письмо, написанное вечером, отправили утром.",
+                    "Письмо написанное вечером, отправили утром."
+                ],
+                answer: "Письмо, написанное вечером, отправили утром.",
+                explain: "«Написанное вечером» — причастный оборот, стоит ПОСЛЕ определяемого слова «письмо» → обособляется запятыми с обеих сторон."
+            },
+            {
+                type: "input",
+                text: "Нужна ли запятая? «Сидящий у окна мальчик читал книгу». Ответь: да или нет.",
+                answer: "нет",
+                hint: "нет",
+                explain: "«Сидящий у окна» — причастный оборот стоит ПЕРЕД определяемым словом «мальчик» → не обособляется, запятая не нужна."
+            },
+            {
+                type: "situation",
+                text: "Найди предложение с ОШИБКОЙ в пунктуации:",
+                situation: `На экзамене нужно найти предложение, в котором допущена ошибка при обособлении. Проверь каждый вариант.`,
+                choices: [
+                    "Устав от дороги, мы остановились.",
+                    "Он, смеясь, рассказывал историю.",
+                    "Читая книгу он не замечал времени.",
+                    "Прочитав главу, она закрыла учебник."
+                ],
+                answer: "Читая книгу он не замечал времени.",
+                explain: "«Читая книгу» — деепричастный оборот. Деепричастный оборот обособляется ВСЕГДА. Правильно: «Читая книгу, он не замечал времени.»"
+            },
+            {
+                type: "match",
+                text: "Сопоставь конструкцию с правилом обособления:",
+                pairs: [
+                    { left: "Причастный оборот после определяемого слова", right: "Обособляется" },
+                    { left: "Причастный оборот до определяемого слова", right: "Не обособляется" },
+                    { left: "Деепричастный оборот", right: "Всегда обособляется" },
+                    { left: "Одиночное наречие", right: "Не обособляется" },
+                ]
+            },
+            {
+                type: "choice",
+                text: "Укажи, чем является выделенный оборот: «Погода, ИСПОРТИВШАЯСЯ К ВЕЧЕРУ, задержала нас.»",
+                choices: ["Деепричастный оборот", "Причастный оборот", "Обстоятельство", "Приложение"],
+                answer: "Причастный оборот",
+                explain: "«Испортившаяся к вечеру» — причастие с зависимым словом, т.е. причастный оборот. Стоит после определяемого слова «погода» → обособляется."
+            },
+            {
+                type: "input",
+                text: "Перепиши предложение с нужными запятыми: «Улыбнувшись она кивнула головой»",
+                answer: "Улыбнувшись, она кивнула головой.",
+                hint: "Улыбнувшись, она кивнула головой.",
+                explain: "«Улыбнувшись» — одиночное деепричастие → обособляется запятой. После деепричастного оборота / одиночного деепричастия запятая обязательна."
+            },
+            {
+                type: "choice",
+                text: "Найди предложение, где нет обособления (запятые не нужны):",
+                choices: [
+                    "Кричащий в лесу ребёнок испугал птиц.",
+                    "Ребёнок, кричащий в лесу, испугал птиц.",
+                    "Испугавшись, птицы улетели.",
+                    "Птицы, испуганные криком, улетели."
+                ],
+                answer: "Кричащий в лесу ребёнок испугал птиц.",
+                explain: "«Кричащий в лесу» — причастный оборот стоит ПЕРЕД определяемым словом «ребёнок» → не обособляется."
+            },
+        ]
+    },
+    // ─── 8. РЕЧЕВЫЕ СИТУАЦИИ: ОФИЦИАЛЬНЫЙ СТИЛЬ ───────────
+    {
+        id: 8, cat: "speech",
+        title: "Официально-деловой стиль. Заявление",
+        subtitle: "Речевые ситуации · 7 класс",
+        xp: 85,
+        theory: [
+            {
+                heading: "Признаки официально-делового стиля",
+                body: `Официально-деловой стиль используется в документах, деловых письмах, заявлениях, приказах. Его признаки:
+— Точность и конкретность (никаких двусмысленностей)
+— Стандартные речевые клише («прошу предоставить», «в связи с тем, что»)
+— Официальная лексика (исключены разговорные слова)
+— Строгая структура текста
+— Страдательные конструкции («было принято решение»)`,
+                termTable: [
+                    { term: "Клише", def: "Устойчивое словосочетание официального стиля", example: "«принять к сведению», «в установленном порядке»" },
+                    { term: "Канцеляризм", def: "Слово/оборот, уместный только в деловых бумагах", example: "«осуществить», «произвести», «надлежащий»" },
+                    { term: "Реквизиты", def: "Обязательные элементы документа", example: "Кому, от кого, дата, подпись" },
+                ]
+            },
+            {
+                heading: "Структура заявления",
+                body: `1. Шапка (кому — должность, ФИО; от кого — ФИО, класс)
+2. Название документа: Заявление (по центру)
+3. Текст (суть просьбы + обоснование)
+4. Дата и подпись`,
+                tip: "В заявлении пишут «прошу», а не «хочу» или «мне нужно». Текст пишется от первого лица: «Прошу разрешить...», «Прошу предоставить...»"
+            }
+        ],
+        questions: [
+            {
+                type: "situation",
+                text: "Выбери правильную фразу для заявления:",
+                situation: `Ученик 8 класса хочет написать директору заявление о пропуске занятий по болезни. Какую фразу правильно использовать в тексте заявления?`,
+                choices: [
+                    "Прошу освободить меня от занятий 5 апреля по причине болезни.",
+                    "Хочу, чтобы вы меня отпустили, потому что я заболел.",
+                    "Мне надо пропустить школу, я болею.",
+                    "Отпустите меня домой, мне плохо."
+                ],
+                answer: "Прошу освободить меня от занятий 5 апреля по причине болезни.",
+                explain: "Только первый вариант соответствует официально-деловому стилю: клише «прошу освободить», точная дата, официальная причина. Остальные варианты — разговорный стиль."
+            },
+            {
+                type: "choice",
+                text: "Какое слово НЕ характерно для официально-делового стиля?",
+                choices: ["осуществить", "надлежащий", "классный", "в установленном порядке"],
+                answer: "классный",
+                explain: "«Классный» в значении «отличный» — разговорное слово. «Надлежащий», «осуществить», «в установленном порядке» — типичные канцеляризмы и клише делового стиля."
+            },
+            {
+                type: "match",
+                text: "Сопоставь разговорное выражение с его деловым аналогом:",
+                pairs: [
+                    { left: "сказал", right: "уведомил" },
+                    { left: "сделал", right: "осуществил" },
+                    { left: "попросил", right: "ходатайствовал" },
+                    { left: "из-за болезни", right: "в связи с болезнью" },
+                ]
+            },
+            {
+                type: "situation",
+                text: "Найди элемент, которого НЕ должно быть в заявлении:",
+                situation: `Ученик написал заявление. Прочти его структуру и найди лишний или неуместный элемент.`,
+                choices: [
+                    "Директору школы № 5 Иванову И.И.",
+                    "от ученика 8 «А» класса Петрова А.",
+                    "Уважаемый Иван Иванович! Как вы себя чувствуете?",
+                    "Прошу разрешить пропуск занятий."
+                ],
+                answer: "Уважаемый Иван Иванович! Как вы себя чувствуете?",
+                explain: "В заявлении нет обращения в форме письма и личных вопросов. Текст заявления начинается сразу с просьбы: «Прошу...». Обращение «Уважаемый...» используется в деловых письмах, но не в заявлениях."
+            },
+            {
+                type: "input",
+                text: "Как называются обязательные элементы официального документа (кому, от кого, дата, подпись)?",
+                answer: "реквизиты",
+                hint: "реквизиты",
+                explain: "Реквизиты — обязательные элементы оформления документа. Без реквизитов документ считается недействительным."
+            },
+            {
+                type: "choice",
+                text: "Какое предложение написано в официально-деловом стиле?",
+                choices: [
+                    "Очень прошу тебя не опаздывать.",
+                    "Настоятельно рекомендую соблюдать установленный распорядок.",
+                    "Ты бы лучше приходил вовремя.",
+                    "Ну что ж, опять опоздал!"
+                ],
+                answer: "Настоятельно рекомендую соблюдать установленный распорядок.",
+                explain: "«Настоятельно рекомендую» — официальный оборот. «Соблюдать установленный распорядок» — деловая лексика. Остальные варианты — разговорный стиль."
+            },
+            {
+                type: "choice",
+                text: "В какой части заявления пишется дата?",
+                choices: ["В шапке (самом начале)", "После названия «Заявление»", "В конце, после подписи", "Дата не нужна"],
+                answer: "В конце, после подписи",
+                explain: "Дата заявления ставится в конце документа, рядом с подписью (или под ней). Это стандартный реквизит оформления заявления."
+            },
+        ]
+    },
+    // ─── 9. ОРФОЭПИЯ И ЛЕКСИКА ──────────────────────────────
+    {
+        id: 9, cat: "speech",
+        title: "Лексика: омонимы, синонимы, антонимы, паронимы",
+        subtitle: "Лексикология · 6 класс",
+        xp: 75,
+        theory: [
+            {
+                heading: "Лексические группы слов",
+                body: `Лексикология изучает словарный состав языка. Слова вступают в разные смысловые отношения.`,
+                termTable: [
+                    { term: "Синонимы", def: "Слова одной части речи, близкие по значению", example: "умный — сообразительный — толковый" },
+                    { term: "Антонимы", def: "Слова с противоположным значением", example: "день — ночь, горячий — холодный" },
+                    { term: "Омонимы", def: "Слова, одинаковые по звучанию, разные по смыслу", example: "ключ (от двери) — ключ (родник)" },
+                    { term: "Паронимы", def: "Слова, похожие по звучанию, но разные по смыслу", example: "одеть — надеть, эффектный — эффективный" },
+                ]
+            },
+            {
+                heading: "Паронимы — источник ошибок",
+                body: `Паронимы — главная ловушка в речи и на экзаменах.
+ОДЕТЬ — кого-либо (одеть ребёнка).
+НАДЕТЬ — что-либо на кого-либо или на себя (надеть пальто).
+ЭФФЕКТНЫЙ — производящий эффект, впечатляющий.
+ЭФФЕКТИВНЫЙ — дающий результат, действенный.`,
+                tip: "Проверка паронима «одеть/надеть»: одеть КОГО? (ребёнка, куклу). Надеть ЧТО? (пальто, шапку)."
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "Какую пару слов можно назвать паронимами?",
+                choices: ["день — ночь", "умный — глупый", "надеть — одеть", "ключ — ключ"],
+                answer: "надеть — одеть",
+                explain: "Паронимы — слова, похожие по звучанию, но разные по значению: «надеть» (что-то на себя) и «одеть» (кого-то). «День — ночь» — антонимы. «Ключ — ключ» — омонимы."
+            },
+            {
+                type: "situation",
+                text: "Выбери правильный вариант:",
+                situation: `Мама говорит сыну перед прогулкой. Какое предложение составлено без ошибки?`,
+                choices: [
+                    "Одень шапку — на улице холодно.",
+                    "Надень шапку — на улице холодно.",
+                    "Надень ребёнка теплее.",
+                    "Одень пальто потеплее."
+                ],
+                answer: "Надень шапку — на улице холодно.",
+                explain: "«Надеть» — что-либо (шапку, пальто). «Одеть» — кого-либо (ребёнка, куклу). Правильно: «Надень шапку» и «Одень ребёнка»."
+            },
+            {
+                type: "match",
+                text: "Сопоставь слово с его лексической группой:",
+                pairs: [
+                    { left: "радость — счастье", right: "Синонимы" },
+                    { left: "добро — зло", right: "Антонимы" },
+                    { left: "лук (растение/оружие)", right: "Омонимы" },
+                    { left: "генеральный — генеральский", right: "Паронимы" },
+                ]
+            },
+            {
+                type: "input",
+                text: "Подбери антоним к слову «трусость» (запиши одним словом):",
+                answer: "храбрость",
+                hint: "храбрость",
+                explain: "Антоним к «трусости» — «храбрость» (или «смелость», «мужество»). Антонимы выражают противоположные понятия."
+            },
+            {
+                type: "choice",
+                text: "Найди предложение с ОШИБКОЙ в употреблении паронима:",
+                choices: [
+                    "Этот метод оказался очень эффективным.",
+                    "Она надела новое платье.",
+                    "Актриса выглядела очень эффективно.",
+                    "Одеть ребёнка по погоде."
+                ],
+                answer: "Актриса выглядела очень эффективно.",
+                explain: "«Эффективный» — дающий результат, действенный. «Эффектный» — производящий впечатление, яркий. Про внешность: «выглядела эффектно». Про метод: «оказался эффективным»."
+            },
+            {
+                type: "choice",
+                text: "Какое слово является синонимом к слову «мрачный»?",
+                choices: ["светлый", "угрюмый", "радостный", "яркий"],
+                answer: "угрюмый",
+                explain: "«Угрюмый» — синоним к «мрачный» (оба обозначают тёмное, нерадостное настроение). «Светлый» и «радостный» — антонимы. «Яркий» — другое значение."
+            },
+            {
+                type: "situation",
+                text: "Определи тип лексических отношений:",
+                situation: `Учитель зачитал пару слов: «коса (причёска) — коса (инструмент для косьбы)». Какие это слова?`,
+                choices: ["Синонимы", "Антонимы", "Омонимы", "Паронимы"],
+                answer: "Омонимы",
+                explain: "«Коса» (причёска) и «коса» (инструмент) — омонимы: пишутся и звучат одинаково, но имеют совершенно разные значения. Это не связанные по смыслу слова."
+            },
+        ]
+    },
+    // ─── 10. ПРИЧАСТИЕ ──────────────────────────────────────
+    {
+        id: 10, cat: "morphology",
+        title: "Причастие как особая форма глагола",
+        subtitle: "Морфология · 7 класс",
+        xp: 80,
+        theory: [
+            {
+                heading: "Причастие: признаки",
+                body: `Причастие — особая форма глагола, которая обозначает признак предмета по действию и совмещает в себе признаки глагола и прилагательного.
+Признаки прилагательного: изменяется по родам, числам, падежам; согласуется с существительным.
+Признаки глагола: имеет вид, время, возвратность; может быть переходным.`,
+                termTable: [
+                    { term: "Действительное причастие", def: "Предмет сам производит действие", example: "читающий (студент) — тот, кто читает" },
+                    { term: "Страдательное причастие", def: "Предмет испытывает действие", example: "прочитанная (книга) — та, которую прочитали" },
+                    { term: "Причастный оборот", def: "Причастие с зависимыми словами", example: "читающий у окна студент" },
+                ]
+            },
+            {
+                heading: "Суффиксы причастий",
+                body: `Действительные настоящего времени: -ущ/-ющ (I спр.), -ащ/-ящ (II спр.): несущий, строящий.
+Действительные прошедшего времени: -вш, -ш: читавший, несший.
+Страдательные настоящего времени: -ем/-ом (I спр.), -им (II спр.): читаемый, слышимый.
+Страдательные прошедшего времени: -нн, -енн, -т: прочитанный, построенный, взятый.`,
+                tip: "Как не перепутать причастие с прилагательным? Попробуй подставить вопрос «делающий что?» или «сделанный кем?» — если подходит, это причастие."
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "Укажи действительное причастие настоящего времени:",
+                choices: ["прочитанный", "строящийся", "построенный", "строивший"],
+                answer: "строящийся",
+                explain: "«Строящийся» — действительное причастие настоящего времени (суффикс -ящ + возвратный суффикс -ся). Предмет сам совершает действие в настоящем времени."
+            },
+            {
+                type: "input",
+                text: "От глагола «рисовать» образуй страдательное причастие прошедшего времени (полная форма):",
+                answer: "нарисованный",
+                hint: "нарисованный",
+                explain: "Страдательное причастие прошедшего времени от «рисовать»: нарисованный (суффикс -нн, приставка на-). Форма: прилагательное со значением «тот, кого нарисовали»."
+            },
+            {
+                type: "match",
+                text: "Сопоставь причастие с его разрядом:",
+                pairs: [
+                    { left: "читающий", right: "Действительное наст. вр." },
+                    { left: "прочитавший", right: "Действительное прош. вр." },
+                    { left: "читаемый", right: "Страдательное наст. вр." },
+                    { left: "прочитанный", right: "Страдательное прош. вр." },
+                ]
+            },
+            {
+                type: "choice",
+                text: "Найди предложение, где слово «варёный» является ПРИЧАСТИЕМ (а не прилагательным):",
+                choices: [
+                    "Варёная картошка стоит на столе.",
+                    "Сваренная мамой картошка стоит на столе.",
+                    "Картошка, сваренная мамой, стоит на столе.",
+                    "На столе стоит варёная картошка."
+                ],
+                answer: "Картошка, сваренная мамой, стоит на столе.",
+                explain: "«Сваренная мамой» — это причастный оборот (есть зависимое слово «мамой»), следовательно, «сваренная» — причастие. «Варёная» без зависимых слов — прилагательное."
+            },
+            {
+                type: "situation",
+                text: "Выбери верное утверждение:",
+                situation: `На уроке учитель попросил объяснить разницу между причастием и прилагательным. Кто ответил правильно?`,
+                choices: [
+                    "Маша: «Причастие и прилагательное — одно и то же».",
+                    "Петя: «Причастие образовано от глагола и сохраняет признаки глагола».",
+                    "Коля: «Причастие не изменяется по родам и числам».",
+                    "Вася: «Прилагательное может иметь вид и время»."
+                ],
+                answer: "Петя: «Причастие образовано от глагола и сохраняет признаки глагола».",
+                explain: "Правильно: причастие — форма глагола, сохраняющая глагольные признаки (вид, время) и приобретающая признаки прилагательного (род, число, падеж)."
+            },
+            {
+                type: "choice",
+                text: "Выпиши суффикс действительного причастия настоящего времени от глагола II спряжения:",
+                choices: ["-ущ / -ющ", "-ащ / -ящ", "-вш", "-нн"],
+                answer: "-ащ / -ящ",
+                explain: "Глаголы II спряжения образуют действительные причастия настоящего времени с помощью суффиксов -ащ/-ящ: строить → строящий, слышать → слышащий."
+            },
+            {
+                type: "input",
+                text: "Определи разряд причастия «написанное» (действительное или страдательное):",
+                answer: "страдательное",
+                hint: "страдательное",
+                explain: "«Написанное» (письмо, которое написали) — страдательное причастие прошедшего времени. Суффикс -нн, образовано от переходного глагола «написать»."
+            },
+        ]
+    },
+    // ─── 11. ДЕЕПРИЧАСТИЕ ───────────────────────────────────
+    {
+        id: 11, cat: "morphology",
+        title: "Деепричастие. Деепричастный оборот",
+        subtitle: "Морфология · 7 класс",
+        xp: 80,
+        theory: [
+            {
+                heading: "Деепричастие",
+                body: `Деепричастие — особая форма глагола, которая обозначает добавочное действие при основном действии, выраженном сказуемым.
+Отвечает на вопросы: что делая? что сделав?
+Признаки глагола: вид, возвратность.
+Признаки наречия: не изменяется, примыкает к глаголу.`,
+                termTable: [
+                    { term: "НСВ (что делая?)", def: "Суффиксы: -а, -я", example: "читая, говоря, смотря" },
+                    { term: "СВ (что сделав?)", def: "Суффиксы: -в, -вши, -ши", example: "прочитав, сказав, принёсши" },
+                ],
+                tip: "ВАЖНО: действие деепричастия и сказуемого выполняет ОДНО И ТО ЖЕ лицо. «Читая книгу, я думал...» — и читал, и думал один человек. Нарушение этого правила — грубая ошибка."
+            },
+            {
+                heading: "Ошибки с деепричастием",
+                body: `Типичная ошибка: «Подходя к дому, мне стало плохо». ОШИБКА: подходил я, а «стало» — безличное. Нет единого субъекта. Правильно: «Когда я подходил к дому, мне стало плохо».
+Другая ошибка: «Читая книгу, глаза устали». ОШИБКА: «глаза» не читают. Правильно: «Читая книгу, я почувствовал, что глаза устали».`
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "Найди предложение с ОШИБКОЙ в употреблении деепричастного оборота:",
+                choices: [
+                    "Возвращаясь домой, я встретил друга.",
+                    "Прочитав книгу, она поставила её на полку.",
+                    "Подходя к станции, у меня заболела голова.",
+                    "Решив задачу, ученик закрыл тетрадь."
+                ],
+                answer: "Подходя к станции, у меня заболела голова.",
+                explain: "Ошибка: «подходя» и «заболела» относятся к разным субъектам (я подхожу, но «у меня заболела» — безличная конструкция). Правильно: «Когда я подходил к станции, у меня заболела голова»."
+            },
+            {
+                type: "input",
+                text: "Образуй деепричастие несовершенного вида от глагола «решать» (что делая?):",
+                answer: "решая",
+                hint: "решая",
+                explain: "«Решать» (НСВ) → «решая» (суффикс -я). Деепричастие НСВ от глаголов I спряжения образуется с суффиксом -а/-я."
+            },
+            {
+                type: "situation",
+                text: "Определи правильное предложение:",
+                situation: `На контрольной работе ученику нужно выбрать предложение, в котором деепричастный оборот употреблён правильно.`,
+                choices: [
+                    "Сдав экзамен, ему стало легче.",
+                    "Сдав экзамен, студент почувствовал облегчение.",
+                    "Сдавая экзамен, погода была хорошей.",
+                    "Сдав экзамены, занятия закончились."
+                ],
+                answer: "Сдав экзамен, студент почувствовал облегчение.",
+                explain: "Верно: «сдав» и «почувствовал» — один субъект (студент). В остальных вариантах деепричастие и сказуемое относятся к разным субъектам, что является ошибкой."
+            },
+            {
+                type: "match",
+                text: "Сопоставь деепричастие с его видом:",
+                pairs: [
+                    { left: "читая", right: "НСВ (что делая?)" },
+                    { left: "прочитав", right: "СВ (что сделав?)" },
+                    { left: "думая", right: "НСВ (что делая?)" },
+                    { left: "написав", right: "СВ (что сделав?)" },
+                ]
+            },
+            {
+                type: "choice",
+                text: "Каким членом предложения является деепричастный оборот?",
+                choices: ["Определение", "Обстоятельство", "Дополнение", "Сказуемое"],
+                answer: "Обстоятельство",
+                explain: "Деепричастный оборот в предложении является обстоятельством (обозначает добавочное обстоятельство действия). Выделяется запятыми как обособленное обстоятельство."
+            },
+            {
+                type: "input",
+                text: "Образуй деепричастие совершенного вида от глагола «написать»:",
+                answer: "написав",
+                hint: "написав",
+                explain: "«Написать» (СВ) → «написав» (суффикс -в). Деепричастия СВ образуются от основы инфинитива с помощью суффиксов -в, -вши."
+            },
+            {
+                type: "choice",
+                text: "Найди деепричастный оборот в предложении: «Прочитав письмо, она надолго задумалась.»",
+                choices: ["прочитав письмо", "надолго задумалась", "она задумалась", "задумалась надолго"],
+                answer: "прочитав письмо",
+                explain: "«Прочитав письмо» — деепричастие «прочитав» с зависимым словом «письмо» = деепричастный оборот. Обособляется запятой, является обстоятельством."
+            },
+        ]
+    },
+    // ─── 12. ТЕКСТ: ТИПЫ И СТИЛИ ────────────────────────────
+    {
+        id: 12, cat: "speech",
+        title: "Типы речи и стили текста",
+        subtitle: "Стилистика · 6–7 класс",
+        xp: 85,
+        theory: [
+            {
+                heading: "Функциональные стили речи",
+                body: `Стиль — это разновидность литературного языка, используемая в определённой сфере общения.`,
+                termTable: [
+                    { term: "Разговорный", def: "Бытовое общение, неофициальная обстановка", example: "Привет! Как дела? Приходи вечером." },
+                    { term: "Научный", def: "Наука, учёба, точность определений", example: "Фотосинтез — процесс образования органических веществ..." },
+                    { term: "Официально-деловой", def: "Документы, законы, деловая переписка", example: "В соответствии с приказом №12..." },
+                    { term: "Публицистический", def: "СМИ, публичные выступления, убеждение", example: "Сегодня мы рассмотрим острую проблему..." },
+                    { term: "Художественный", def: "Литература, образность, эмоциональность", example: "Лес дышал осенней прохладой и тишиной..." },
+                ]
+            },
+            {
+                heading: "Типы речи",
+                body: `Тип речи — способ изложения мысли.`,
+                termTable: [
+                    { term: "Повествование", def: "Рассказ о событиях (что произошло?), динамика", example: "Я пришёл. Открыл дверь. Увидел..." },
+                    { term: "Описание", def: "Характеристика предмета/явления (какой?), статика", example: "Комната была большой и светлой..." },
+                    { term: "Рассуждение", def: "Мысли, доводы, выводы (почему? зачем?)", example: "Я считаю, что... Во-первых... Следовательно..." },
+                ],
+                tip: "Вопрос-подсказка: что происходит? → повествование. Какой? → описание. Почему? Зачем? → рассуждение."
+            }
+        ],
+        questions: [
+            {
+                type: "choice",
+                text: "К какому стилю относится фрагмент: «Лесная тишина была наполнена шорохами и далёким пением птиц»?",
+                choices: ["Научный", "Официально-деловой", "Художественный", "Разговорный"],
+                answer: "Художественный",
+                explain: "Образность («лесная тишина была наполнена»), эмоциональность, метафора — признаки художественного стиля. Описание природы характерно для литературных текстов."
+            },
+            {
+                type: "situation",
+                text: "Определи тип речи фрагмента:",
+                situation: `«Утром я проснулся рано. Выглянул в окно — за ночь выпал снег. Оделся и вышел на улицу. Первые следы на снегу оставил я.» Что это?`,
+                choices: ["Описание", "Повествование", "Рассуждение", "Смешанный тип"],
+                answer: "Повествование",
+                explain: "Последовательность действий, динамика («проснулся», «выглянул», «оделся», «вышел»), вопрос «что произошло?» — признаки повествования."
+            },
+            {
+                type: "match",
+                text: "Сопоставь фрагмент текста со стилем:",
+                pairs: [
+                    { left: "Согласно ст. 5 данного договора...", right: "Официально-деловой" },
+                    { left: "Митоз — это способ деления клетки...", right: "Научный" },
+                    { left: "Слушай, заходи сегодня, поговорим.", right: "Разговорный" },
+                    { left: "Россия стоит перед выбором...", right: "Публицистический" },
+                ]
+            },
+            {
+                type: "choice",
+                text: "Какой тип речи использован: «Осень в этом году выдалась тёплой и долгой. Деревья стояли в золоте и багрянце»?",
+                choices: ["Повествование", "Описание", "Рассуждение", "Повествование + описание"],
+                answer: "Описание",
+                explain: "«Какой?» — осень тёплая, деревья в золоте. Статичная картина, нет динамики действий. Это описание."
+            },
+            {
+                type: "input",
+                text: "Напиши, какой тип речи предполагает структуру: тезис → аргументы → вывод?",
+                answer: "рассуждение",
+                hint: "рассуждение",
+                explain: "Рассуждение строится по схеме: тезис (мысль, которую нужно доказать) → аргументы (доказательства) → вывод. Характерны слова «потому что», «следовательно», «во-первых»."
+            },
+            {
+                type: "choice",
+                text: "Найди признак, НЕ характерный для научного стиля:",
+                choices: ["Точные определения", "Специальная терминология", "Эмоциональность и образность", "Логичность изложения"],
+                answer: "Эмоциональность и образность",
+                explain: "Эмоциональность и образность — признаки художественного или публицистического стиля. Научный стиль стремится к точности, логичности и беспристрастности."
+            },
+            {
+                type: "situation",
+                text: "Ученику нужно написать рецензию на фильм для школьной газеты. Какой стиль подходит?",
+                situation: `Задание: написать рецензию на недавно вышедший фильм для публикации в школьной газете «Вестник школы». Текст должен убеждать читателей посмотреть (или не смотреть) этот фильм.`,
+                choices: ["Официально-деловой", "Научный", "Публицистический", "Разговорный"],
+                answer: "Публицистический",
+                explain: "Школьная газета — это СМИ. Рецензия с целью убеждения, обращённая к широкой аудитории — публицистический стиль. Для него характерны оценочность, логичность и обращение к читателю."
+            },
+        ]
+    },
+]; // конец массива LESSONS_DATA
+// ── STATE ─────────────────────────────────────────────
+let state = {
+    xp: 0, level: 1, lessonsCompleted: [], unlockedAchievements: [],
+    name: "Ученик", streak: 0, lastPlayDate: null,
+    correctAnswers: 0, wrongAnswers: 0, perfectLessons: 0, dailyQuestIdx: 0,
+};
+// ── PERSIST ───────────────────────────────────────────
+function saveState() { localStorage.setItem("rusProState", JSON.stringify(state)); }
+function loadState() {
+    const raw = localStorage.getItem("rusProState");
+    if (raw)
+        state = Object.assign(Object.assign({}, state), JSON.parse(raw));
+    checkStreak();
+}
+function checkStreak() {
+    const today = new Date().toDateString();
+    if (state.lastPlayDate === today)
+        return;
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    state.streak = state.lastPlayDate === yesterday ? (state.streak || 0) + 1 : 1;
+    state.lastPlayDate = today;
+    saveState();
+}
+// ── LEVELS ─────────────────────────────────────────────
+function getCurrentLevel() {
+    var _a;
+    return (_a = [...LEVELS].reverse().find(l => state.xp >= l.xpNeeded)) !== null && _a !== void 0 ? _a : LEVELS[0];
+}
+function getNextLevel() {
+    var _a;
+    const c = getCurrentLevel();
+    return (_a = LEVELS.find(l => l.lvl === c.lvl + 1)) !== null && _a !== void 0 ? _a : null;
+}
+function getXPProgress() {
+    const c = getCurrentLevel();
+    const n = getNextLevel();
+    if (!n)
+        return 100;
+    return Math.min(100, Math.round(((state.xp - c.xpNeeded) / (n.xpNeeded - c.xpNeeded)) * 100));
+}
+// ── XP ─────────────────────────────────────────────────
+function addXP(amount) {
+    const oldLvl = getCurrentLevel().lvl;
+    state.xp += amount;
+    const newLvl = getCurrentLevel().lvl;
+    saveState();
+    updateNavXP();
+    showToast(`+${amount} XP`);
+    if (newLvl > oldLvl)
+        setTimeout(() => showLevelUpModal(getCurrentLevel()), 700);
+    checkAchievements();
+}
+function updateNavXP() {
+    const el = document.getElementById("navXPVal");
+    if (el)
+        el.textContent = `${state.xp} XP`;
+}
+// ── TOAST / MODAL ──────────────────────────────────────
+let _toast = null;
+function showToast(msg) {
+    const el = document.getElementById("xpToastText");
+    if (el)
+        el.textContent = msg;
+    const tEl = document.getElementById("xpToast");
+    if (!tEl)
+        return;
+    if (!_toast)
+        _toast = new bootstrap.Toast(tEl, { delay: 2500 });
+    _toast.show();
+}
+function showLevelUpModal(lvl) {
+    const n = document.getElementById("modalLevelNum");
+    const t = document.getElementById("modalLevelTitle");
+    if (n)
+        n.textContent = String(lvl.lvl);
+    if (t)
+        t.textContent = lvl.title;
+    const m = document.getElementById("levelUpModal");
+    if (m)
+        new bootstrap.Modal(m).show();
+}
+// ── ACHIEVEMENTS ───────────────────────────────────────
+function checkAchievements() {
+    const s = {
+        xp: state.xp, level: getCurrentLevel().lvl,
+        lessonsCompleted: state.lessonsCompleted.length,
+        streak: state.streak,
+        correctAnswers: state.correctAnswers, wrongAnswers: state.wrongAnswers,
+        perfectLessons: state.perfectLessons,
+    };
+    ACHIEVEMENTS.forEach(a => {
+        if (!state.unlockedAchievements.includes(a.id) && a.condition(s)) {
+            state.unlockedAchievements.push(a.id);
+            saveState();
+            showToast(`Ачивка: ${a.name}!`);
+        }
+    });
+}
+function showPage(pid) {
+    document.querySelectorAll(".page").forEach(p => {
+        p.classList.add("d-none");
+        p.classList.remove("active");
+    });
+    const t = document.getElementById(`page-${pid}`);
+    if (t) {
+        t.classList.remove("d-none");
+        t.classList.add("active");
+    }
+    window.scrollTo(0, 0);
+    if (pid === "home")
+        renderHome();
+    if (pid === "lessons")
+        renderLessons();
+    if (pid === "profile")
+        renderProfile();
+}
+// ── HOME ───────────────────────────────────────────────
+function renderHome() {
+    const q = DAILY_QUESTS[state.dailyQuestIdx % DAILY_QUESTS.length];
+    const el = document.getElementById("homeDailyDesc");
+    if (el)
+        el.textContent = q.desc;
+}
+// ── LESSONS LIST ───────────────────────────────────────
+let activeFilter = "all";
+function renderLessons() {
+    const lvl = getCurrentLevel();
+    const nxt = getNextLevel();
+    const prog = getXPProgress();
+    const lvlEl = document.getElementById("lessonsLevelText");
+    const fillEl = document.getElementById("lessonsLvlFill");
+    const xpEl = document.getElementById("lessonsXPText");
+    const dqdEl = document.getElementById("dailyQuestDesc");
+    const dqxEl = document.getElementById("dailyQuestXP");
+    if (lvlEl)
+        lvlEl.textContent = `Ур. ${lvl.lvl} · ${lvl.title}`;
+    if (fillEl)
+        fillEl.style.width = `${prog}%`;
+    if (xpEl)
+        xpEl.textContent = nxt ? `${state.xp} / ${nxt.xpNeeded} XP` : `${state.xp} XP · Максимум!`;
+    const q = DAILY_QUESTS[state.dailyQuestIdx % DAILY_QUESTS.length];
+    if (dqdEl)
+        dqdEl.textContent = q.desc;
+    if (dqxEl)
+        dqxEl.textContent = String(q.xp);
+    renderLessonsGrid();
+    initFilterTabs();
+}
+function initFilterTabs() {
+    document.querySelectorAll(".ftab").forEach(btn => {
+        btn.onclick = () => {
+            var _a;
+            document.querySelectorAll(".ftab").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            activeFilter = (_a = btn.dataset["cat"]) !== null && _a !== void 0 ? _a : "all";
+            renderLessonsGrid();
+        };
+    });
+}
+const CAT_LABEL = {
+    morphology: "Морфология", syntax: "Синтаксис",
+    ortho: "Орфография", speech: "Речь", punctuation: "Пунктуация"
+};
+const CAT_CLASS = {
+    morphology: "", syntax: "syn", ortho: "ort", speech: "sp", punctuation: "pun"
+};
+function renderLessonsGrid() {
+    const grid = document.getElementById("lessonsGrid");
+    if (!grid)
+        return;
+    const filtered = activeFilter === "all"
+        ? LESSONS_DATA
+        : LESSONS_DATA.filter(l => l.cat === activeFilter);
+    grid.innerHTML = filtered.map((lesson, idx) => {
+        const globalIdx = LESSONS_DATA.indexOf(lesson);
+        const done = state.lessonsCompleted.includes(lesson.id);
+        const locked = globalIdx > 0 && !state.lessonsCompleted.includes(LESSONS_DATA[globalIdx - 1].id);
+        const catCls = CAT_CLASS[lesson.cat];
+        return `
+      <div class="col-sm-6 col-lg-4">
+        <div class="lesson-card ${done ? "completed" : ""} ${locked ? "locked" : ""}"
+             onclick="${locked ? "" : `App.openLesson(${lesson.id})`}">
+          <div class="lc-meta">
+            <span class="lc-num">УРОК ${String(lesson.id).padStart(2, "0")}</span>
+            <span class="lc-cat ${catCls}">${CAT_LABEL[lesson.cat]}</span>
+          </div>
+          <div class="lc-title">${lesson.title}</div>
+          <div class="lc-desc">${lesson.subtitle}</div>
+          <div class="lc-footer">
+            <span class="lc-xp">+${lesson.xp} XP</span>
+            <span class="lc-tasks">${lesson.questions.length} заданий</span>
+          </div>
+          ${done ? `<div class="lc-done-badge"><i class="fa-solid fa-check"></i></div>` : ""}
+          ${locked ? `<div class="lc-lock-ico"><i class="fa-solid fa-lock"></i></div>` : ""}
+        </div>
+      </div>
+    `;
+    }).join("");
+}
+// ── LESSON DETAIL ──────────────────────────────────────
+let currentLesson = null;
+let currentStep = 0;
+let lessonScore = { correct: 0, total: 0 };
+let matchState = null;
+function openLesson(id) {
+    var _a;
+    currentLesson = (_a = LESSONS_DATA.find(l => l.id === id)) !== null && _a !== void 0 ? _a : null;
+    if (!currentLesson)
+        return;
+    currentStep = 0;
+    lessonScore = { correct: 0, total: 0 };
+    showPage("lesson-detail");
+    renderStep();
+}
+function renderStep() {
+    if (!currentLesson)
+        return;
+    const l = currentLesson;
+    const totalSteps = l.theory.length + l.questions.length;
+    const pct = Math.round((currentStep / totalSteps) * 100);
+    let html = `
+    <div class="lesson-hero-strip">
+      <div class="d-flex align-items-start justify-content-between gap-3">
+        <div>
+          <div class="lesson-title">${l.title}</div>
+          <div class="lesson-subtitle text-muted">${l.subtitle}</div>
+        </div>
+        <div class="text-end">
+          <div class="small text-muted mb-1">Шаг ${currentStep + 1} / ${totalSteps}</div>
+          <div class="progress" style="height:5px;width:130px">
+            <div class="progress-bar bg-primary" style="width:${pct}%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+    if (currentStep < l.theory.length) {
+        html += renderTheoryStep(l.theory[currentStep], currentStep === l.theory.length - 1);
+    }
+    else {
+        const qIdx = currentStep - l.theory.length;
+        if (qIdx < l.questions.length) {
+            html += renderQuestionStep(l.questions[qIdx], qIdx + 1, l.questions.length);
+        }
+        else {
+            html += renderComplete();
+        }
+    }
+    const con = document.getElementById("lessonContent");
+    if (con)
+        con.innerHTML = html;
+}
+function renderTheoryStep(ts, isLast) {
+    let body = `<h4><i class="fa-solid fa-book-open me-2"></i>${ts.heading}</h4><p>${ts.body.replace(/\n/g, "<br>")}</p>`;
+    if (ts.termTable) {
+        body += `<table class="term-table">
+      <tr><th>Термин</th><th>Определение</th><th>Пример</th></tr>
+      ${ts.termTable.map(r => `<tr><td><strong>${r.term}</strong></td><td>${r.def}</td><td>${r.example || ""}</td></tr>`).join("")}
+    </table>`;
+    }
+    if (ts.examples) {
+        body += ts.examples.map(e => `<div class="example-block"><strong>${e.text}</strong> <span>— ${e.comment}</span></div>`).join("");
+    }
+    if (ts.tip) {
+        body += `<div class="tip-block"><strong>Запомни:</strong> ${ts.tip}</div>`;
+    }
+    return `
+    <div class="theory-card">${body}</div>
+    <div class="text-center mt-2">
+      <button class="btn-cta" onclick="App.nextStep()">
+        ${isLast ? "Перейти к заданиям" : "Далее"}
+        <i class="fa-solid fa-arrow-right ms-2"></i>
+      </button>
+    </div>
+  `;
+}
+function renderQuestionStep(q, num, total) {
+    var _a, _b, _c, _d, _e;
+    const typeLabel = {
+        choice: "Выбор ответа", input: "Письменный ответ",
+        match: "Сопоставление", situation: "Речевая ситуация"
+    };
+    const typeIcon = {
+        choice: "fa-circle-dot", input: "fa-keyboard",
+        match: "fa-arrows-left-right", situation: "fa-comments"
+    };
+    let body = "";
+    if (q.type === "choice" || q.type === "situation") {
+        if (q.situation) {
+            body += `<div class="q-situation">${q.situation.replace(/\n/g, "<br>")}</div>`;
+        }
+        body += `<div class="d-flex flex-column gap-0">${((_a = q.choices) !== null && _a !== void 0 ? _a : []).map(c => { var _a; return `<button class="choice-btn" onclick="App.checkChoice(this,'${escQ(c)}','${escQ((_a = q.answer) !== null && _a !== void 0 ? _a : "")}')">${c}</button>`; }).join("")}</div>`;
+    }
+    if (q.type === "input") {
+        body = `
+      <div class="q-input-row">
+        <input type="text" class="q-input" id="textAnswer" placeholder="Введи ответ..."
+               onkeydown="if(event.key==='Enter') App.checkInput('${escQ((_b = q.answer) !== null && _b !== void 0 ? _b : "")}','${escQ((_c = q.hint) !== null && _c !== void 0 ? _c : "")}')" />
+        <button class="btn btn-primary" onclick="App.checkInput('${escQ((_d = q.answer) !== null && _d !== void 0 ? _d : "")}','${escQ((_e = q.hint) !== null && _e !== void 0 ? _e : "")}')">
+          Проверить
+        </button>
+      </div>
+    `;
+    }
+    if (q.type === "match" && q.pairs) {
+        body = buildMatchHTML(q.pairs);
+    }
+    const isLast = num >= total;
+    return `
+    <div class="q-card">
+      <div class="d-flex align-items-center justify-content-between mb-1">
+        <div class="q-label">Вопрос ${num} / ${total}</div>
+        <div class="q-type-badge">
+          <i class="fa-solid ${typeIcon[q.type]}"></i> ${typeLabel[q.type]}
+        </div>
+      </div>
+      <div class="q-text">${q.text}</div>
+      ${body}
+      <div class="feedback-block" id="feedback"></div>
+      <div class="explain-block"  id="explainBlock"></div>
+    </div>
+    <div class="next-wrap" id="nextWrap">
+      <button class="btn-cta" onclick="App.nextStep()">
+        ${isLast ? "Завершить урок" : "Следующий вопрос"}
+        <i class="fa-solid fa-${isLast ? "flag-checkered" : "arrow-right"} ms-2"></i>
+      </button>
+    </div>
+  `;
+}
+function escQ(s) {
+    return s.replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+}
+// ── CHECK CHOICE ───────────────────────────────────────
+function checkChoice(btn, chosen, correct) {
+    document.querySelectorAll(".choice-btn").forEach(b => b.classList.add("disabled"));
+    const ok = chosen === correct;
+    btn.classList.add(ok ? "correct" : "wrong");
+    if (!ok) {
+        document.querySelectorAll(".choice-btn").forEach(b => {
+            var _a;
+            if (((_a = b.textContent) === null || _a === void 0 ? void 0 : _a.trim()) === correct)
+                b.classList.add("correct");
+        });
+    }
+    recordFeedback(ok, correct);
+}
+// ── CHECK INPUT ────────────────────────────────────────
+function checkInput(correct, hint) {
+    const inp = document.getElementById("textAnswer");
+    if (!inp)
+        return;
+    const val = inp.value.trim().toLowerCase().replace(/[!?.]/g, "");
+    const ok = val === correct.toLowerCase().replace(/[!?.]/g, "");
+    inp.classList.add(ok ? "correct" : "wrong");
+    inp.disabled = true;
+    const btn = inp.nextElementSibling;
+    if (btn)
+        btn.disabled = true;
+    recordFeedback(ok, hint || correct);
+}
+// ── MATCH ──────────────────────────────────────────────
+function buildMatchHTML(pairs) {
+    const shuffled = [...pairs.map(p => p.right)].sort(() => Math.random() - 0.5);
+    matchState = { selected: null, matched: 0, pairs, lefts: pairs.map(p => p.left), rights: shuffled };
+    const rows = pairs.map((_, i) => `
+    <div class="match-item" id="ml-${i}" onclick="App.matchClick('left',${i})">${pairs[i].left}</div>
+    <div class="match-item" id="mr-${i}" onclick="App.matchClick('right',${i})">${shuffled[i]}</div>
+  `).join("");
+    return `
+    <div class="match-grid">
+      <div class="match-col-header">Понятие</div>
+      <div class="match-col-header">Определение</div>
+      ${rows}
+    </div>
+  `;
+}
+function matchClick(side, idx) {
+    if (!matchState)
+        return;
+    const elId = side === "left" ? `ml-${idx}` : `mr-${idx}`;
+    const el = document.getElementById(elId);
+    if (!el || el.classList.contains("matched"))
+        return;
+    if (!matchState.selected) {
+        document.querySelectorAll(".match-item").forEach(m => m.classList.remove("selected"));
+        el.classList.add("selected");
+        matchState.selected = { side, idx };
+    }
+    else {
+        const prev = matchState.selected;
+        if (prev.side === side) {
+            document.querySelectorAll(".match-item").forEach(m => m.classList.remove("selected"));
+            el.classList.add("selected");
+            matchState.selected = { side, idx };
+            return;
+        }
+        const li = side === "left" ? idx : prev.idx;
+        const ri = side === "right" ? idx : prev.idx;
+        const lW = matchState.lefts[li];
+        const rW = matchState.rights[ri];
+        const ok = matchState.pairs.some(p => p.left === lW && p.right === rW);
+        const eL = document.getElementById(`ml-${li}`);
+        const eR = document.getElementById(`mr-${ri}`);
+        if (ok) {
+            eL.classList.remove("selected");
+            eL.classList.add("matched");
+            eR.classList.remove("selected");
+            eR.classList.add("matched");
+            matchState.matched++;
+            if (matchState.matched === matchState.pairs.length) {
+                addXP(XP_PER_CORRECT);
+                state.correctAnswers++;
+                saveState();
+                recordFeedback(true, "");
+            }
+        }
+        else {
+            eL.classList.add("wrong-flash");
+            eR.classList.add("wrong-flash");
+            setTimeout(() => { eL.classList.remove("wrong-flash", "selected"); eR.classList.remove("wrong-flash", "selected"); }, 700);
+        }
+        matchState.selected = null;
+    }
+}
+// ── FEEDBACK ───────────────────────────────────────────
+function recordFeedback(ok, correctAnswer) {
+    var _a;
+    const q = currentLesson === null || currentLesson === void 0 ? void 0 : currentLesson.questions[(currentStep - ((_a = currentLesson === null || currentLesson === void 0 ? void 0 : currentLesson.theory.length) !== null && _a !== void 0 ? _a : 0)) - 0];
+    if (ok) {
+        addXP(XP_PER_CORRECT);
+        state.correctAnswers++;
+    }
+    else {
+        state.wrongAnswers++;
+    }
+    lessonScore.total++;
+    if (ok)
+        lessonScore.correct++;
+    saveState();
+    const fb = document.getElementById("feedback");
+    if (fb) {
+        fb.className = `feedback-block show ${ok ? "good" : "bad"}`;
+        fb.innerHTML = ok
+            ? `<i class="fa-solid fa-circle-check me-2"></i>Верно! Отлично!`
+            : `<i class="fa-solid fa-circle-xmark me-2"></i>Неверно. Правильный ответ: <strong>${correctAnswer}</strong>`;
+    }
+    // Показать объяснение при неверном ответе
+    if (!ok && (q === null || q === void 0 ? void 0 : q.explain)) {
+        const expl = document.getElementById("explainBlock");
+        if (expl) {
+            expl.className = "explain-block show";
+            expl.innerHTML = `<i class="fa-solid fa-circle-info me-2"></i>${q.explain}`;
+        }
+    }
+    const nw = document.getElementById("nextWrap");
+    if (nw)
+        nw.classList.add("show");
+}
+function nextStep() {
+    if (!currentLesson)
+        return;
+    currentStep++;
+    const totalSteps = currentLesson.theory.length + currentLesson.questions.length;
+    if (currentStep > totalSteps)
+        currentStep = totalSteps;
+    renderStep();
+    window.scrollTo(0, 0);
+}
+// ── COMPLETE ───────────────────────────────────────────
+function renderComplete() {
+    if (!currentLesson)
+        return "";
+    const l = currentLesson;
+    const perfect = lessonScore.correct === l.questions.length;
+    if (!state.lessonsCompleted.includes(l.id)) {
+        state.lessonsCompleted.push(l.id);
+        if (perfect)
+            state.perfectLessons++;
+        addXP(XP_PER_LESSON);
+        saveState();
+        checkAchievements();
+    }
+    const pct = Math.round((lessonScore.correct / l.questions.length) * 100);
+    return `
+    <div class="complete-card">
+      <div class="complete-icon ${perfect ? "perfect" : ""}">
+        <i class="fa-solid ${perfect ? "fa-trophy" : "fa-check-double"}"></i>
+      </div>
+      <h3 class="fw-bold mt-3 mb-2">${perfect ? "Идеально!" : "Урок завершён!"}</h3>
+      <p class="text-muted mb-3">«${l.title}»<br>Правильных ответов: ${lessonScore.correct} из ${l.questions.length} (${pct}%)</p>
+      <div class="display-5 fw-bold text-primary mb-4">+${XP_PER_LESSON} XP</div>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <button class="btn-cta" onclick="App.showPage('lessons')">К урокам</button>
+        <button class="btn-ghost" onclick="App.openLesson(${l.id})">Повторить</button>
+      </div>
+    </div>
+  `;
+}
+// ── PROFILE ────────────────────────────────────────────
+function renderProfile() {
+    const lvl = getCurrentLevel();
+    const nxt = getNextLevel();
+    const prog = getXPProgress();
+    const name = state.name;
+    const g = (id) => document.getElementById(id);
+    g("profAvatar").textContent = name[0].toUpperCase();
+    g("profName").textContent = name;
+    g("profLevel").textContent = `Уровень ${lvl.lvl} · ${lvl.title}`;
+    const fill = g("profXPFill");
+    if (fill)
+        fill.style.width = `${prog}%`;
+    g("profXPTxt").textContent = nxt
+        ? `${state.xp} / ${nxt.xpNeeded} XP до уровня ${nxt.lvl}`
+        : `${state.xp} XP — максимальный уровень!`;
+    const tot = state.correctAnswers + state.wrongAnswers;
+    const acc = tot > 0 ? Math.round(state.correctAnswers / tot * 100) : 0;
+    g("statLessons").textContent = String(state.lessonsCompleted.length);
+    g("statXP").textContent = String(state.xp);
+    g("statStreak").textContent = String(state.streak || 0);
+    g("statAccuracy").textContent = `${acc}%`;
+    renderAchievements();
+}
+function renderAchievements() {
+    const grid = document.getElementById("achievGrid");
+    if (!grid)
+        return;
+    const s = {
+        xp: state.xp, level: getCurrentLevel().lvl,
+        lessonsCompleted: state.lessonsCompleted.length, streak: state.streak,
+        correctAnswers: state.correctAnswers, wrongAnswers: state.wrongAnswers,
+        perfectLessons: state.perfectLessons,
+    };
+    grid.innerHTML = ACHIEVEMENTS.map(a => {
+        const ul = state.unlockedAchievements.includes(a.id);
+        return `
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <div class="achiev-card ${ul ? "unlocked" : "locked"}">
+          <div class="ach-ico"><i class="${a.icon}"></i></div>
+          <div class="ach-name">${a.name}</div>
+          <div class="ach-desc">${a.desc}</div>
+        </div>
+      </div>
+    `;
+    }).join("");
+}
+function saveName() {
+    const inp = document.getElementById("nameInput");
+    if (!inp)
+        return;
+    const v = inp.value.trim();
+    if (!v)
+        return;
+    state.name = v;
+    saveState();
+    renderProfile();
+    inp.value = "";
+}
+// ── THEME ──────────────────────────────────────────────
+function initTheme() {
+    var _a;
+    const t = (_a = localStorage.getItem("rusProTheme")) !== null && _a !== void 0 ? _a : "light";
+    document.documentElement.setAttribute("data-bs-theme", t);
+    updateThemeIcon(t);
+}
+function toggleTheme() {
+    var _a;
+    const c = (_a = document.documentElement.getAttribute("data-bs-theme")) !== null && _a !== void 0 ? _a : "light";
+    const n = c === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-bs-theme", n);
+    localStorage.setItem("rusProTheme", n);
+    updateThemeIcon(n);
+}
+function updateThemeIcon(t) {
+    const ic = document.getElementById("themeIcon");
+    if (ic)
+        ic.className = t === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+}
+// ── INIT ───────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+    var _a;
+    initTheme();
+    loadState();
+    updateNavXP();
+    state.dailyQuestIdx = Math.floor(Date.now() / 86400000) % DAILY_QUESTS.length;
+    (_a = document.getElementById("themeToggle")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", toggleTheme);
+    showPage("home");
+});
+// ── PUBLIC API ─────────────────────────────────────────
+const App = { showPage, openLesson, nextStep, checkChoice, checkInput, matchClick, saveName };
+  </script>
+</body>
+</html>
